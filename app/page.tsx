@@ -432,7 +432,7 @@ export default function Home() {
         <div className="portrait-stage" aria-label="Portrait of Weikun Deng">
           <div className="orbit orbit-one" aria-hidden="true" />
           <div className="orbit orbit-two" aria-hidden="true" />
-          <div className="portrait-frame"><img src="/images/weikun-deng.png" alt="Weikun Deng" /></div>
+          <div className="portrait-frame"><img src="/images/weikun-deng.jpg" alt="Weikun Deng" /></div>
           <div className="signal-card signal-card-top"><span>Published record</span><strong>10 journal articles</strong></div>
           <div className="signal-card signal-card-bottom"><span>Inventive work</span><strong>4 granted patents</strong></div>
         </div>

@@ -13,13 +13,13 @@ export const metadata: Metadata = {
     url: '/',
     title: 'Weikun Deng | Engineering Intelligence',
     description: 'Physics-informed machine learning for diagnostics, prognostics and intelligent maintenance.',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Weikun Deng — Engineering intelligence, grounded in physics.' }],
+    images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'Weikun Deng — Engineering intelligence, grounded in physics.' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Weikun Deng | Engineering Intelligence',
     description: 'Physics-informed machine learning for diagnostics, prognostics and intelligent maintenance.',
-    images: ['/og.png'],
+    images: ['/og.jpg'],
   },
 };
 
