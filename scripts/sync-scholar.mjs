@@ -233,10 +233,19 @@ async function fetchScholarProfile(profile) {
   return response.text();
 }
 
+async function readStandardInput() {
+  process.stdin.setEncoding('utf8');
+  let html = '';
+  for await (const chunk of process.stdin) html += chunk;
+  return html;
+}
+
 async function main() {
   const checkOnly = process.argv.includes('--check');
   const current = JSON.parse(await readFile(DATA_PATH, 'utf8'));
-  const html = await fetchScholarProfile(current.profile);
+  const html = process.argv.includes('--stdin')
+    ? await readStandardInput()
+    : await fetchScholarProfile(current.profile);
   const parsed = parseScholarProfile(html, current.profile);
   const next = buildSnapshot(current, parsed);
 
