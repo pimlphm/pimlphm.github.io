@@ -415,11 +415,6 @@
       "en": "Doctoral thesis · PIML · Self-supervision",
       "zh": "博士论文 · PIML · 自监督学习"
     },
-    "image": "/research/aero-engine-cutaway.gif",
-    "imageAlt": {
-      "en": "Animated aero-engine cutaway linked to the doctoral research archive",
-      "zh": "与博士研究档案相关的航空发动机剖视动画"
-    },
     "publicationIds": [
       "thesis"
     ],
@@ -554,10 +549,10 @@
       "en": "Rotor dynamics · RFEMNN · Few-shot learning",
       "zh": "转子动力学 · RFEMNN · 少样本学习"
     },
-    "image": "/research/twin-rotor.gif",
+    "image": "/research/rotor-rfemnn.png",
     "imageAlt": {
-      "en": "Animated twin-rotor finite-element model",
-      "zh": "双转子有限元模型动画"
+      "en": "Rotor-dynamics-informed RFEMNN diagnostic architecture",
+      "zh": "转子动力学信息 RFEMNN 故障诊断架构"
     },
     "publicationIds": [
       "j2",
@@ -716,11 +711,6 @@
     "tags": {
       "en": "Aero-engines · Rubbing dynamics · Experiments",
       "zh": "航空发动机 · 碰摩动力学 · 试验验证"
-    },
-    "image": "/research/aero-engine-cutaway.gif",
-    "imageAlt": {
-      "en": "Animated aero-engine cutaway",
-      "zh": "航空发动机剖视动画"
     },
     "publicationIds": [],
     "links": []

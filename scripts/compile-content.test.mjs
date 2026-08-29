@@ -25,14 +25,14 @@ const validManifest = {
   authors: 'Weikun Deng, Coauthor',
   venue: 'Verified Journal 2',
   doi: '10.1234/new.2',
-  topic: { en: 'New topic', zh: '新主题' },
-  projectKind: { en: 'Research project', zh: '研究项目' },
-  projectTitle: { en: 'New project', zh: '新项目' },
-  summary: { en: 'Verified published result.', zh: '经验证的已发表结果。' },
-  imageAlt: { en: 'Result figure', zh: '结果图' },
+  topic: 'New topic',
+  projectKind: 'Research project',
+  projectTitle: 'New project',
+  summary: 'Verified published result.',
+  imageAlt: 'Result figure',
   files: ['paper.pdf'],
   figures: ['figure.png'],
-  links: [{ label: { en: 'Article', zh: '论文' }, href: 'https://doi.org/10.1234/new.2' }],
+  links: [{ label: 'Article', href: 'https://doi.org/10.1234/new.2' }],
   rightsConfirmed: true,
 };
 
@@ -59,7 +59,7 @@ test('a complete published upload extends both catalogues', async () => {
     assert.equal(result.uploads, 1);
     assert.equal(result.publications.length, 2);
     assert.equal(result.projects.length, 2);
-    assert.equal(result.projects[0].title.zh, '新项目');
+    assert.equal(result.projects[0].title.en, 'New project');
   } finally {
     await rm(root, { recursive: true, force: true });
   }

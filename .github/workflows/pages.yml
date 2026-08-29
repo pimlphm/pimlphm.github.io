@@ -37,8 +37,8 @@ jobs:
         run: npm run content:build
       - name: Test Scholar parser
         run: npm run test:scholar-sync
-      - name: Test bilingual routes
-        run: npm run test:bilingual
+      - name: Test English site
+        run: npm run test:site
       - name: Lint
         run: npm run lint
       - name: Build static site

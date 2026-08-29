@@ -9,10 +9,6 @@ export const metadata: Metadata = {
   authors: [{ name: 'Weikun Deng' }],
   alternates: {
     canonical: '/',
-    languages: {
-      en: '/',
-      'zh-CN': '/zh/',
-    },
   },
   openGraph: {
     type: 'website',

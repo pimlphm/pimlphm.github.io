@@ -11,10 +11,7 @@ export default defineConfig({
     outDir: '../github-dist',
     emptyOutDir: true,
     rollupOptions: {
-      input: {
-        en: resolve(import.meta.dirname, 'github/index.html'),
-        zh: resolve(import.meta.dirname, 'github/zh/index.html'),
-      },
+      input: resolve(import.meta.dirname, 'github/index.html'),
     },
   },
 });

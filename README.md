@@ -15,9 +15,9 @@ The GitHub Pages artifact is produced with:
 npm run build:github
 ```
 
-## Languages
+## Language
 
-The English homepage is published at `/`, and the Simplified Chinese homepage is published at `/zh/`. Both routes render the same publication and Scholar data source; only interface copy, descriptions and research-topic labels are localized. Run `npm run test:bilingual` to validate both entries and their metadata.
+The homepage is published in English at `/`. Run `npm run test:site` to validate the English entry, metadata, project archive and publication catalogue.
 
 ## Weekly Scholar refresh
 
@@ -33,7 +33,7 @@ The allowlist is intentional: citation counts and links update automatically, wh
 
 ## Upload a published article
 
-Create a folder under `content/publications/` from the included bilingual template, then add the published PDF and an optional article figure. Pushing that folder to `main` validates rights, metadata, DOI/title/file duplicates and both languages; a valid record is added automatically to the publication list and the year-grouped project archive before GitHub Pages redeploys.
+Create a folder under `content/publications/` from the included English template, then add the published PDF and an optional article figure. Pushing that folder to `main` validates rights, metadata and DOI/title/file duplicates; a valid record is added automatically to the publication list and the year-grouped project archive before GitHub Pages redeploys.
 
 Run the same validation locally:
 
@@ -41,7 +41,7 @@ Run the same validation locally:
 npm run content:check
 ```
 
-A bare PDF is intentionally not published automatically because it cannot reliably establish publication status, sharing rights, the canonical record or Chinese copy. See `content/publications/README.md` for the upload format.
+A bare PDF is intentionally not published automatically because it cannot reliably establish publication status, sharing rights or the canonical record. See `content/publications/README.md` for the upload format.
 
 ## Content provenance
 

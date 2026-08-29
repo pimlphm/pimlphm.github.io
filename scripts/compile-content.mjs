@@ -35,10 +35,15 @@ function requireString(value, label) {
 }
 
 function requireLocalized(value, label) {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error(`${label} must contain en and zh.`);
+  if (typeof value === 'string') {
+    const en = requireString(value, label);
+    return { en, zh: en };
+  }
+  if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error(`${label} must contain English text.`);
+  const en = requireString(value.en, `${label}.en`);
   return {
-    en: requireString(value.en, `${label}.en`),
-    zh: requireString(value.zh, `${label}.zh`),
+    en,
+    zh: typeof value.zh === 'string' && value.zh.trim() ? value.zh.trim() : en,
   };
 }
 
@@ -160,7 +165,7 @@ export async function compileCatalog({ projectRoot = DEFAULT_ROOT, write = true 
     const topic = requireLocalized(manifest.topic, `${id}.topic`);
     const projectTitle = requireLocalized(manifest.projectTitle, `${id}.projectTitle`);
     const summary = requireLocalized(manifest.summary, `${id}.summary`);
-    const projectKind = requireLocalized(manifest.projectKind ?? { en: 'Publication', zh: '论文成果' }, `${id}.projectKind`);
+    const projectKind = requireLocalized(manifest.projectKind ?? 'Publication', `${id}.projectKind`);
     const versionOf = typeof manifest.versionOf === 'string' ? manifest.versionOf : '';
     if (versionOf && !ids.has(versionOf)) throw new Error(`${id}.versionOf does not reference an earlier publication.`);
 
@@ -179,7 +184,7 @@ export async function compileCatalog({ projectRoot = DEFAULT_ROOT, write = true 
     })) : [];
     const doiUrl = `https://doi.org/${doi}`;
     if (!links.some((link) => normalizedDoi(link.href) === doi)) {
-      links.unshift({ label: { en: 'Published article', zh: '已发表论文' }, href: doiUrl });
+      links.unshift({ label: { en: 'Published article', zh: 'Published article' }, href: doiUrl });
     }
 
     const files = Array.isArray(manifest.files) ? manifest.files.map((value, index) => safeRelativeAsset(value, `${id}.files[${index}]`)) : [];
@@ -190,7 +195,7 @@ export async function compileCatalog({ projectRoot = DEFAULT_ROOT, write = true 
       copyQueue.push({ sourcePath, destination: join(generatedAssets, id, fileName) });
     }
     for (const fileName of files.filter((name) => extname(name).toLowerCase() === '.pdf')) {
-      links.push({ label: { en: 'Full text', zh: '全文下载' }, href: `/uploads-generated/${id}/${encodeURIComponent(fileName)}` });
+      links.push({ label: { en: 'Full text', zh: 'Full text' }, href: `/uploads-generated/${id}/${encodeURIComponent(fileName)}` });
     }
 
     const figure = figures[0] ? `/uploads-generated/${id}/${encodeURIComponent(figures[0])}` : undefined;
