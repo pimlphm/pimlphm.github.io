@@ -4,25 +4,29 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '17 10 * * 1'
+      timezone: 'Asia/Shanghai'
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+permissions: {}
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: pages-main
+  cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  sync-scholar:
+    if: github.event_name != 'push'
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    timeout-minutes: 10
+    permissions:
+      contents: write
     steps:
-      - name: Checkout
+      - name: Checkout main
         uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
@@ -30,6 +34,55 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Test Scholar parser
+        run: npm run test:scholar-sync
+      - name: Refresh approved Scholar data
+        run: npm run sync:scholar
+      - name: Validate refreshed site
+        run: |
+          git diff --check
+          npm run lint
+          npm run build:github
+      - name: Commit refreshed snapshot
+        run: |
+          git add data/scholar.json
+          if git diff --cached --quiet; then
+            echo "Scholar snapshot is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: refresh Scholar snapshot"
+          git push origin HEAD:main
+
+  build-and-deploy:
+    needs: sync-scholar
+    if: ${{ always() && !cancelled() && (needs.sync-scholar.result == 'success' || needs.sync-scholar.result == 'skipped') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout deploy source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'push' && github.sha || 'main' }}
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Test Scholar parser
+        run: npm run test:scholar-sync
+      - name: Lint
+        run: npm run lint
       - name: Build static site
         run: npm run build:github
       - name: Configure Pages

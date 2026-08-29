@@ -1,0 +1,113 @@
+{
+  "profile": {
+    "userId": "mTYJRFwAAAAJ",
+    "expectedName": "Weikun DENG",
+    "href": "https://scholar.google.com/citations?user=mTYJRFwAAAAJ&hl=en",
+    "synced": "29 Aug 2026",
+    "citations": 341,
+    "hIndex": 8,
+    "i10Index": 7,
+    "distinctOutputs": 19
+  },
+  "ignoredScholarIds": [
+    "9vf0nzSNQJEC",
+    "t6usbXjVLHcC"
+  ],
+  "works": {
+    "j11": {
+      "scholarId": "dTyEYWd-f8wC",
+      "citations": 0,
+      "href": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=mTYJRFwAAAAJ&citation_for_view=mTYJRFwAAAAJ:dTyEYWd-f8wC"
+    },
+    "j8": {
+      "scholarId": "tkaPQYYpVKoC",
+      "citations": 0,
+      "href": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=mTYJRFwAAAAJ&citation_for_view=mTYJRFwAAAAJ:tkaPQYYpVKoC"
+    },
+    "j7": {
+      "scholarId": "Y5dfb0dijaUC",
+      "citations": 7,
+      "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=3094338599254038023"
+    },
+    "j9": {
+      "scholarId": "Mojj43d5GZwC",
+      "citations": 2,
+      "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=4382560757057658099,11074911297966547505"
+    },
+    "j6": {
+      "scholarId": "olpn-zPbct0C",
+      "citations": 25,
+      "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=15913141528009756290"
+    },
+    "j4": {
+      "scholarId": "WA5NYHcadZ8C",
+      "citations": 56,
+      "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=12764772955221383901"
+    },
+    "j5": {
+      "scholarId": "J-pR_7NvFogC",
+      "citations": 17,
+      "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=11120740423380869275"
+    },
+    "j3": {
+      "scholarId": "q3oQSFYPqjQC",
+      "citations": 33,
+      "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=1406066903378386080,15404055038816730732"
+    },
+    "j2": {
+      "scholarId": "SdhP9T11ey4C",
+      "citations": 40,
+      "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=13092672637013601172"
+    },
+    "j1": {
+      "scholarId": "tS2w5q8j5-wC",
+      "citations": 123,
+      "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=4072749472620204044"
+    },
+    "j10": {
+      "scholarId": "eMMeJKvmdy0C",
+      "citations": 1,
+      "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=12836266796575362340,16707244450928729569"
+    },
+    "c7": {
+      "scholarId": "AXPGKjj_ei8C",
+      "citations": 0,
+      "href": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=mTYJRFwAAAAJ&citation_for_view=mTYJRFwAAAAJ:AXPGKjj_ei8C"
+    },
+    "c6": {
+      "scholarId": "_B80troHkn4C",
+      "citations": 0,
+      "href": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=mTYJRFwAAAAJ&citation_for_view=mTYJRFwAAAAJ:_B80troHkn4C"
+    },
+    "c5": {
+      "scholarId": "wbdj-CoPYUoC",
+      "citations": 3,
+      "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=9729520756669696967"
+    },
+    "c4": {
+      "scholarId": "mvPsJ3kp5DgC",
+      "citations": 0,
+      "href": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=mTYJRFwAAAAJ&citation_for_view=mTYJRFwAAAAJ:mvPsJ3kp5DgC"
+    },
+    "c3": {
+      "scholarId": "5Ul4iDaHHb8C",
+      "citations": 8,
+      "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=15795472189371486319"
+    },
+    "c2": {
+      "scholarId": "VOx2b1Wkg3QC",
+      "citations": 3,
+      "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=13044722092665110113"
+    },
+    "c1": {
+      "scholarId": "vRqMK49ujn8C",
+      "citations": 21,
+      "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=729756862279123607"
+    },
+    "thesis": {
+      "scholarId": "bnK-pcrLprsC",
+      "citations": 2,
+      "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=17403117016678058937"
+    }
+  }
+}

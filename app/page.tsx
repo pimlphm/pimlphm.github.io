@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-img-element -- Shared with the static GitHub Pages build; GIFs must remain animated. */
 
 import { useMemo, useState } from 'react';
+import scholarData from '../data/scholar.json';
 
 type PublicationKind = 'Journal' | 'Conference' | 'Thesis';
 
@@ -28,38 +29,8 @@ type ScholarWorkImpact = {
   href: string;
 };
 
-const scholarProfile = {
-  href: 'https://scholar.google.com/citations?user=mTYJRFwAAAAJ&hl=en',
-  synced: '29 Aug 2026',
-  citations: 341,
-  hIndex: 8,
-  i10Index: 7,
-  distinctOutputs: 19,
-};
-
-// Google Scholar snapshot, matched to one final publication record per output.
-// For cited works, the URL opens the citing documents; zero-count works open their Scholar record.
-const scholarImpactByPublication: Record<string, ScholarWorkImpact> = {
-  j11: { citations: 0, href: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=mTYJRFwAAAAJ&citation_for_view=mTYJRFwAAAAJ:dTyEYWd-f8wC' },
-  j8: { citations: 0, href: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=mTYJRFwAAAAJ&citation_for_view=mTYJRFwAAAAJ:tkaPQYYpVKoC' },
-  j7: { citations: 7, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=3094338599254038023' },
-  j9: { citations: 2, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=4382560757057658099,11074911297966547505' },
-  j6: { citations: 25, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=15913141528009756290' },
-  j4: { citations: 56, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=12764772955221383901' },
-  j5: { citations: 17, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=11120740423380869275' },
-  j3: { citations: 33, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=1406066903378386080,15404055038816730732' },
-  j2: { citations: 40, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=13092672637013601172' },
-  j1: { citations: 123, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=4072749472620204044' },
-  j10: { citations: 1, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=12836266796575362340,16707244450928729569' },
-  c7: { citations: 0, href: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=mTYJRFwAAAAJ&citation_for_view=mTYJRFwAAAAJ:AXPGKjj_ei8C' },
-  c6: { citations: 0, href: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=mTYJRFwAAAAJ&citation_for_view=mTYJRFwAAAAJ:_B80troHkn4C' },
-  c5: { citations: 3, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=9729520756669696967' },
-  c4: { citations: 0, href: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=mTYJRFwAAAAJ&citation_for_view=mTYJRFwAAAAJ:mvPsJ3kp5DgC' },
-  c3: { citations: 8, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=15795472189371486319' },
-  c2: { citations: 3, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=13044722092665110113' },
-  c1: { citations: 21, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=729756862279123607' },
-  thesis: { citations: 2, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=17403117016678058937' },
-};
+const scholarProfile = scholarData.profile;
+const scholarImpactByPublication: Record<string, ScholarWorkImpact> = scholarData.works;
 
 const researchThreads = [
   {
