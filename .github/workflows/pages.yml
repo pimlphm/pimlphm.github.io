@@ -3,10 +3,12 @@ name: Deploy GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: '17 2 * * 1'
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -31,16 +33,37 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Test publication uploads
-        run: npm run test:content
       - name: Build publication and project catalogues
         run: npm run content:build
+      - name: Refresh approved Google Scholar data
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: npm run sync:scholar
+      - name: Test publication uploads
+        run: npm run test:content
       - name: Test Scholar parser
         run: npm run test:scholar-sync
       - name: Test English site
         run: npm run test:site
       - name: Lint
         run: npm run lint
+      - name: Persist automatically refreshed data
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: |
+          unexpected="$(git status --porcelain --untracked-files=all | awk '{print $2}' | grep -Ev '^(data/scholar\.json|data/publications\.generated\.json|data/projects\.generated\.json)$' || true)"
+          if [ -n "$unexpected" ]; then
+            printf 'Unexpected files changed during automatic refresh:\n%s\n' "$unexpected" >&2
+            exit 1
+          fi
+          git add data/scholar.json data/publications.generated.json data/projects.generated.json
+          if git diff --cached --quiet; then
+            echo 'Scholar and publication data are already current.'
+            exit 0
+          fi
+          git config user.name 'pimlphm-site-bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore: refresh public site data [skip ci]'
+          git push origin HEAD:main
       - name: Build static site
         run: npm run build:github
       - name: Configure Pages

@@ -35,6 +35,16 @@ test('the published site exposes only the English interface', async () => {
   assert.doesNotMatch(sharedHome, /language-switch|hrefLang="zh-CN"|data-language=/);
 });
 
+test('GitHub owns the weekly data refresh and redeployment mechanism', async () => {
+  const workflow = await read('.github/workflows/pages.yml');
+
+  assert.match(workflow, /schedule:\s*\n\s*- cron: '17 2 \* \* 1'/);
+  assert.match(workflow, /contents: write/);
+  assert.match(workflow, /Refresh approved Google Scholar data[\s\S]*npm run sync:scholar/);
+  assert.match(workflow, /Persist automatically refreshed data[\s\S]*git push origin HEAD:main/);
+  assert.match(workflow, /Build static site[\s\S]*Deploy/);
+});
+
 test('the removed motion showcase and its GIFs are absent from the interface', async () => {
   const [sharedHome, styles, projectsText] = await Promise.all([
     read('app/home.tsx'),

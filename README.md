@@ -21,7 +21,9 @@ The homepage is published in English at `/`. Run `npm run test:site` to validate
 
 ## Weekly Scholar refresh
 
-A local scheduled task refreshes the approved Google Scholar snapshot every Monday at 10:17 Asia/Shanghai time, then pushes the validated change so GitHub Pages redeploys it. The job makes one request to the public profile, validates all metrics and known record IDs, updates `data/scholar.json`, and fails without changing the live site if Scholar returns a block page or an unexpected record set.
+The repository's GitHub Pages workflow refreshes the approved Google Scholar snapshot every Monday at 10:17 Asia/Shanghai time. It validates all metrics and known record IDs, updates and commits `data/scholar.json`, rebuilds the site and deploys the refreshed page in the same run. This mechanism runs on GitHub and does not depend on a local computer or a Codex task.
+
+The workflow fails closed without changing the live site if Scholar returns a block page, an unexpected record set or invalid metrics. A manual `workflow_dispatch` exercises the same end-to-end refresh path.
 
 Run the same validation without changing local data:
 
@@ -29,11 +31,11 @@ Run the same validation without changing local data:
 npm run check:scholar
 ```
 
-The allowlist is intentional: citation counts and links update automatically, while new or non-final profile records require review before they can appear publicly.
+The allowlist is intentional: citation counts and links update automatically, while a new Scholar record appears only after its uploaded `publication.json` explicitly supplies the matching `scholarId`. Duplicate and non-final records remain excluded.
 
 ## Upload a published article
 
-Create a folder under `content/publications/` from the included English template, then add the published PDF and an optional article figure. Pushing that folder to `main` validates rights, metadata and DOI/title/file duplicates; a valid record is added automatically to the publication list and the year-grouped project archive before GitHub Pages redeploys.
+Create a folder under `content/publications/` from the included English template, then add the published PDF and an optional article figure. Pushing that folder to `main` activates the repository workflow, validates rights, metadata and DOI/title/file duplicates, then adds a valid record automatically to the publication list and year-grouped project archive before GitHub Pages redeploys.
 
 Run the same validation locally:
 
