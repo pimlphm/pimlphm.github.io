@@ -59,6 +59,18 @@ test('the removed motion showcase and its GIFs are absent from the interface', a
   assert.match(projectsText, /rotor-rfemnn\.png/);
 });
 
+test('the source-code section keeps the repositories without the removed promotional copy', async () => {
+  const [sharedHome, styles] = await Promise.all([
+    read('app/home.tsx'),
+    read('app/globals.css'),
+  ]);
+
+  assert.match(sharedHome, /Selected source code/);
+  assert.match(sharedHome, /codeProjects\.map/);
+  assert.doesNotMatch(sharedHome, /Implementations linked to the papers|Four public repositories|04 public repositories|Paper-level links|Documented scope/);
+  assert.doesNotMatch(styles, /\.code-facts|\.code-heading h2|\.code-heading > p:not\(\.eyebrow\)/);
+});
+
 test('year archive and publication catalogue remain complete and deduplicated', async () => {
   const [publicationsText, projectsText, sharedHome] = await Promise.all([
     read('data/publications.generated.json'),

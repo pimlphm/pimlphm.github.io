@@ -188,14 +188,10 @@ img { display: block; max-width: 100%; }
 .empty-state { margin: 0; padding: 50px 0; color: var(--muted); }
 .rights-note { max-width: 670px; margin: 26px 0 0 auto; color: var(--muted); font-size: 12px; line-height: 1.65; text-align: right; }
 
-.code-section { position: relative; display: grid; grid-template-columns: minmax(290px, .72fr) minmax(0, 1.28fr); gap: clamp(50px, 9vw, 140px); min-height: 760px; padding: clamp(90px, 10vw, 150px) 7vw; overflow: hidden; color: #f2f5ed; background: #101b18; }
+.code-section { position: relative; min-height: 680px; padding: clamp(90px, 10vw, 150px) 7vw; overflow: hidden; color: #f2f5ed; background: #101b18; }
 .code-heading { position: relative; z-index: 2; align-self: start; }
 .code-heading .eyebrow { color: var(--acid); }
-.code-heading h2 { font-size: clamp(46px, 5.2vw, 76px); }
-.code-heading > p:not(.eyebrow) { max-width: 470px; margin: 28px 0 0; color: rgba(242,245,237,.6); font-size: 16px; line-height: 1.7; }
-.code-facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
-.code-facts span { padding: 8px 11px; color: rgba(242,245,237,.72); border: 1px solid rgba(255,255,255,.2); border-radius: 999px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
-.code-grid { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-self: end; border-top: 1px solid rgba(255,255,255,.2); border-left: 1px solid rgba(255,255,255,.2); }
+.code-grid { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: clamp(48px, 7vw, 92px) 0 0 24%; border-top: 1px solid rgba(255,255,255,.2); border-left: 1px solid rgba(255,255,255,.2); }
 .code-card { display: flex; flex-direction: column; min-height: 290px; padding: 26px; border-right: 1px solid rgba(255,255,255,.2); border-bottom: 1px solid rgba(255,255,255,.2); }
 .code-card-top { display: flex; justify-content: space-between; color: var(--acid); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .code-card h3 { margin: auto 0 12px; font-size: 24px; letter-spacing: -.03em; }
@@ -294,8 +290,6 @@ img { display: block; max-width: 100%; }
   .site-header { grid-template-columns: auto 1fr auto; }
   .hero { grid-template-columns: minmax(0, 1fr) minmax(330px, .7fr); padding-inline: 5vw; }
   .publication-row { grid-template-columns: 90px minmax(0, 1fr) 110px; }
-  .code-section { grid-template-columns: 1fr; }
-  .code-grid { margin-left: 24%; }
 }
 
 @media (max-width: 860px) {

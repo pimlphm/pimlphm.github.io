@@ -108,13 +108,6 @@ const uiCopy = {
     noRecords: 'No records match that search.',
     rightsNote: 'Scholar counts are a dated snapshot and will change over time. Records are matched by final title and DOI, with duplicate or non-final versions omitted. Full-text buttons point to open or author-shared copies.',
     codeEyebrow: 'Selected source code',
-    codeHeadingOne: 'Implementations',
-    codeHeadingTwo: 'linked to the papers.',
-    codeIntro: 'Four public repositories sit beside the exact publication they support. Each repository states its scope, inputs and known limitations.',
-    codeSummaryAria: 'Repository collection summary',
-    publicRepositories: '04 public repositories',
-    paperLinks: 'Paper-level links',
-    documentedScope: 'Documented scope',
     repository: 'Repository',
     paper: 'Paper',
     pathEyebrow: 'Path',
@@ -462,11 +455,6 @@ export default function Home() {
         </div>
         <div className="section-heading code-heading">
           <p className="eyebrow"><span /> {t.codeEyebrow}</p>
-          <h2>{t.codeHeadingOne}<br />{t.codeHeadingTwo}</h2>
-          <p>{t.codeIntro}</p>
-          <div className="code-facts" aria-label={t.codeSummaryAria}>
-            <span>{t.publicRepositories}</span><span>{t.paperLinks}</span><span>{t.documentedScope}</span>
-          </div>
         </div>
         <div className="code-grid">
           {codeProjects.map((project, index) => (
