@@ -41,8 +41,8 @@ test('GitHub owns the weekly data refresh and redeployment mechanism', async () 
   assert.match(workflow, /schedule:\s*\n\s*- cron: '17 2 \* \* 1'/);
   assert.match(workflow, /contents: write/);
   assert.match(workflow, /Refresh approved Google Scholar data[\s\S]*npm run sync:scholar/);
+  assert.match(workflow, /Build static site[\s\S]*Deploy[\s\S]*Persist automatically refreshed data/);
   assert.match(workflow, /Persist automatically refreshed data[\s\S]*git push origin HEAD:main/);
-  assert.match(workflow, /Build static site[\s\S]*Deploy/);
 });
 
 test('the removed motion showcase and its GIFs are absent from the interface', async () => {

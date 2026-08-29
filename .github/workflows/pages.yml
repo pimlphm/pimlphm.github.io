@@ -46,6 +46,17 @@ jobs:
         run: npm run test:site
       - name: Lint
         run: npm run lint
+      - name: Build static site
+        run: npm run build:github
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./github-dist
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
       - name: Persist automatically refreshed data
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         shell: bash
@@ -64,14 +75,3 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -m 'chore: refresh public site data [skip ci]'
           git push origin HEAD:main
-      - name: Build static site
-        run: npm run build:github
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./github-dist
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4

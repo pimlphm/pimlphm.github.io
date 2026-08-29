@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
@@ -52,14 +52,24 @@ async function createFixture(manifest = validManifest) {
   return root;
 }
 
-test('a complete published upload extends both catalogues', async () => {
+test('a complete published upload writes both catalogues and public assets', async () => {
   const root = await createFixture();
   try {
-    const result = await compileCatalog({ projectRoot: root, write: false });
+    const result = await compileCatalog({ projectRoot: root, write: true });
+    const [generatedPublications, generatedProjects, copiedPaper, copiedFigure] = await Promise.all([
+      readFile(join(root, 'data', 'publications.generated.json'), 'utf8').then(JSON.parse),
+      readFile(join(root, 'data', 'projects.generated.json'), 'utf8').then(JSON.parse),
+      readFile(join(root, 'public', 'uploads-generated', validManifest.id, 'paper.pdf'), 'utf8'),
+      readFile(join(root, 'public', 'uploads-generated', validManifest.id, 'figure.png'), 'utf8'),
+    ]);
     assert.equal(result.uploads, 1);
     assert.equal(result.publications.length, 2);
     assert.equal(result.projects.length, 2);
     assert.equal(result.projects[0].title.en, 'New project');
+    assert.equal(generatedPublications.length, 2);
+    assert.equal(generatedProjects.length, 2);
+    assert.equal(copiedPaper, '%PDF-1.7 test paper');
+    assert.equal(copiedFigure, 'PNG test figure');
   } finally {
     await rm(root, { recursive: true, force: true });
   }
