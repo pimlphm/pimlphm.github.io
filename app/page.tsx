@@ -23,6 +23,44 @@ type Publication = {
   links: PublicationLink[];
 };
 
+type ScholarWorkImpact = {
+  citations: number;
+  href: string;
+};
+
+const scholarProfile = {
+  href: 'https://scholar.google.com/citations?user=mTYJRFwAAAAJ&hl=en',
+  synced: '29 Aug 2026',
+  citations: 341,
+  hIndex: 8,
+  i10Index: 7,
+  distinctOutputs: 19,
+};
+
+// Google Scholar snapshot, matched to one final publication record per output.
+// For cited works, the URL opens the citing documents; zero-count works open their Scholar record.
+const scholarImpactByPublication: Record<string, ScholarWorkImpact> = {
+  j11: { citations: 0, href: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=mTYJRFwAAAAJ&citation_for_view=mTYJRFwAAAAJ:dTyEYWd-f8wC' },
+  j8: { citations: 0, href: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=mTYJRFwAAAAJ&citation_for_view=mTYJRFwAAAAJ:tkaPQYYpVKoC' },
+  j7: { citations: 7, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=3094338599254038023' },
+  j9: { citations: 2, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=4382560757057658099,11074911297966547505' },
+  j6: { citations: 25, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=15913141528009756290' },
+  j4: { citations: 56, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=12764772955221383901' },
+  j5: { citations: 17, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=11120740423380869275' },
+  j3: { citations: 33, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=1406066903378386080,15404055038816730732' },
+  j2: { citations: 40, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=13092672637013601172' },
+  j1: { citations: 123, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=4072749472620204044' },
+  j10: { citations: 1, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=12836266796575362340,16707244450928729569' },
+  c7: { citations: 0, href: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=mTYJRFwAAAAJ&citation_for_view=mTYJRFwAAAAJ:AXPGKjj_ei8C' },
+  c6: { citations: 0, href: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=mTYJRFwAAAAJ&citation_for_view=mTYJRFwAAAAJ:_B80troHkn4C' },
+  c5: { citations: 3, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=9729520756669696967' },
+  c4: { citations: 0, href: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=mTYJRFwAAAAJ&citation_for_view=mTYJRFwAAAAJ:mvPsJ3kp5DgC' },
+  c3: { citations: 8, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=15795472189371486319' },
+  c2: { citations: 3, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=13044722092665110113' },
+  c1: { citations: 21, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=729756862279123607' },
+  thesis: { citations: 2, href: 'https://scholar.google.com/scholar?oi=bibs&hl=en&cites=17403117016678058937' },
+};
+
 const researchThreads = [
   {
     index: '01',
@@ -81,6 +119,16 @@ const researchFigures = [
 ];
 
 const publications: Publication[] = [
+  {
+    id: 'j11',
+    kind: 'Journal',
+    year: 2026,
+    title: 'Cross scenarios interpretable quantification of maintenance action effects on system health via liquid Kolmogorov–Arnold operator based framework',
+    authors: 'Weikun Deng, Khanh T. P. Nguyen, Phuc Do, Kamal Medjaher',
+    venue: 'Reliability Engineering & System Safety, 112898',
+    topic: 'Maintenance effects · Interpretable operators',
+    links: [{ label: 'Publisher', href: 'https://doi.org/10.1016/j.ress.2026.112898' }],
+  },
   {
     id: 'j8',
     kind: 'Journal',
@@ -396,7 +444,7 @@ export default function Home() {
         <nav className="nav-links" aria-label="Primary navigation">
           <a href="#work">Research</a>
           <a href="#publications">Publications</a>
-          <a href="#code">Code</a>
+          <a href="#code">Source code</a>
           <a href="#life">Beyond research</a>
         </nav>
         <ExternalLink className="nav-cta" href="https://github.com/pimlphm">GitHub</ExternalLink>
@@ -433,7 +481,7 @@ export default function Home() {
           <div className="orbit orbit-one" aria-hidden="true" />
           <div className="orbit orbit-two" aria-hidden="true" />
           <div className="portrait-frame"><img src="/images/weikun-deng.jpg" alt="Weikun Deng" /></div>
-          <div className="signal-card signal-card-top"><span>Published record</span><strong>10 journal articles</strong></div>
+          <div className="signal-card signal-card-top"><span>Published record</span><strong>11 journal articles</strong></div>
           <div className="signal-card signal-card-bottom"><span>Inventive work</span><strong>4 granted patents</strong></div>
         </div>
       </section>
@@ -489,7 +537,18 @@ export default function Home() {
       <section className="publications-section" id="publications">
         <div className="section-heading publications-heading">
           <div><p className="eyebrow"><span /> Publications</p><h2>The complete public record.</h2></div>
-          <p>10 journal articles · 7 conference contributions · doctoral thesis</p>
+          <p>11 journal articles · 7 conference contributions · doctoral thesis</p>
+        </div>
+
+        <div className="scholar-impact" aria-label={`Google Scholar impact snapshot, ${scholarProfile.synced}`}>
+          <a className="scholar-impact-source" href={scholarProfile.href} target="_blank" rel="noreferrer">
+            <span>Google Scholar</span>
+            <strong>Impact snapshot</strong>
+            <small>Synced {scholarProfile.synced} · {scholarProfile.distinctOutputs} distinct published outputs</small>
+          </a>
+          <div className="scholar-metric"><strong>{scholarProfile.citations}</strong><span>Citations</span></div>
+          <div className="scholar-metric"><strong>{scholarProfile.hIndex}</strong><span>h-index</span></div>
+          <div className="scholar-metric"><strong>{scholarProfile.i10Index}</strong><span>i10-index</span></div>
         </div>
 
         <div className="publication-tools">
@@ -507,7 +566,9 @@ export default function Home() {
 
         <div className="publication-count" aria-live="polite">{visiblePublications.length} {visiblePublications.length === 1 ? 'record' : 'records'}</div>
         <div className="publication-list">
-          {visiblePublications.map((publication) => (
+          {visiblePublications.map((publication) => {
+            const scholarImpact = scholarImpactByPublication[publication.id];
+            return (
             <article className="publication-row" key={publication.id}>
               <div className="publication-meta"><span>{publication.year}</span><span>{publication.kind}</span></div>
               <div className="publication-main">
@@ -517,15 +578,22 @@ export default function Home() {
                 <p className="venue">{publication.venue}</p>
               </div>
               <div className="publication-links">
+                {scholarImpact && (
+                  <a className="publication-impact" href={scholarImpact.href} target="_blank" rel="noreferrer">
+                    <strong>{scholarImpact.citations}</strong>
+                    <span>{scholarImpact.citations === 1 ? 'citation' : 'citations'} · Scholar ↗</span>
+                  </a>
+                )}
                 {publication.links.map((link) => (
                   <a href={link.href} key={`${publication.id}-${link.label}`} target="_blank" rel="noreferrer" download={link.download || undefined}>{link.label} <span aria-hidden="true">↗</span></a>
                 ))}
               </div>
             </article>
-          ))}
+            );
+          })}
           {visiblePublications.length === 0 && <p className="empty-state">No records match that search.</p>}
         </div>
-        <p className="rights-note">Full-text buttons point to open or author-shared copies. Other entries link to the original publisher or repository record.</p>
+        <p className="rights-note">Scholar counts are a dated snapshot and will change over time. Records are matched by final title and DOI, with duplicate or non-final versions omitted. Full-text buttons point to open or author-shared copies.</p>
       </section>
 
       <section className="code-section" id="code">
@@ -533,9 +601,12 @@ export default function Home() {
           <span className="code-node node-a" /><span className="code-node node-b" /><span className="code-node node-c" /><span className="code-center">&lt;/&gt;</span>
         </div>
         <div className="section-heading code-heading">
-          <p className="eyebrow"><span /> Code & reproducibility</p>
-          <h2>From paper<br />to runnable artifact.</h2>
-          <p>Curated repositories connect published methods to readable implementations.</p>
+          <p className="eyebrow"><span /> Selected source code</p>
+          <h2>Implementations<br />linked to the papers.</h2>
+          <p>Four public repositories sit beside the exact publication they support. Each repository states its scope, inputs and known limitations.</p>
+          <div className="code-facts" aria-label="Repository collection summary">
+            <span>04 public repositories</span><span>Paper-level links</span><span>Documented scope</span>
+          </div>
         </div>
         <div className="code-grid">
           {codeProjects.map((project, index) => (
