@@ -6,6 +6,13 @@ const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const DATA_PATH = resolve(SCRIPT_DIR, '../data/scholar.json');
 const PUBLICATIONS_PATH = resolve(SCRIPT_DIR, '../data/publications.generated.json');
 const SCHOLAR_ORIGIN = 'https://scholar.google.com';
+const SCHOLAR_HOSTS = [
+  'scholar.google.com',
+  'scholar.google.co.uk',
+  'scholar.google.com.au',
+  'scholar.google.ca',
+];
+const SCHOLAR_HOST_SET = new Set(SCHOLAR_HOSTS);
 const MAX_PROFILE_ROWS = 99;
 const BOT_MARKERS = [
   'automated queries',
@@ -63,9 +70,10 @@ function elementContentWithClass(fragment, tagName, className) {
 
 function scholarUrl(href) {
   const url = new URL(href, SCHOLAR_ORIGIN);
-  if (url.protocol !== 'https:' || url.hostname !== 'scholar.google.com') {
+  if (url.protocol !== 'https:' || !SCHOLAR_HOST_SET.has(url.hostname)) {
     throw new Error(`Unexpected Scholar link host: ${url.hostname}`);
   }
+  url.hostname = 'scholar.google.com';
   return url.href;
 }
 
@@ -214,30 +222,44 @@ export function buildSnapshot(current, parsed, now = new Date(), publicationCata
 }
 
 async function fetchScholarProfile(profile) {
-  const url = new URL('/citations', SCHOLAR_ORIGIN);
-  url.searchParams.set('user', profile.userId);
-  url.searchParams.set('hl', 'en');
-  url.searchParams.set('pagesize', '100');
-  url.searchParams.set('sortby', 'pubdate');
+  const failures = [];
 
-  const response = await fetch(url, {
-    headers: {
-      Accept: 'text/html,application/xhtml+xml',
-      'Accept-Language': 'en-US,en;q=0.9',
-      'User-Agent': 'Mozilla/5.0 (compatible; pimlphm-scholar-sync/1.0; +https://github.com/pimlphm/pimlphm.github.io)',
-    },
-    redirect: 'follow',
-    signal: AbortSignal.timeout(30_000),
-  });
+  for (const [index, host] of SCHOLAR_HOSTS.entries()) {
+    const url = new URL('/citations', `https://${host}`);
+    url.searchParams.set('user', profile.userId);
+    url.searchParams.set('hl', 'en');
+    url.searchParams.set('pagesize', '100');
+    url.searchParams.set('sortby', 'pubdate');
 
-  if (!response.ok) throw new Error(`Scholar request failed with HTTP ${response.status}.`);
-  if (!response.headers.get('content-type')?.toLowerCase().includes('text/html')) {
-    throw new Error('Scholar returned a non-HTML response.');
+    try {
+      const response = await fetch(url, {
+        headers: {
+          Accept: 'text/html,application/xhtml+xml',
+          'Accept-Language': 'en-US,en;q=0.9',
+          'User-Agent': 'Mozilla/5.0 (compatible; pimlphm-scholar-sync/1.0; +https://github.com/pimlphm/pimlphm.github.io)',
+        },
+        redirect: 'follow',
+        signal: AbortSignal.timeout(20_000),
+      });
+
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      if (!response.headers.get('content-type')?.toLowerCase().includes('text/html')) {
+        throw new Error('non-HTML response');
+      }
+      if (!SCHOLAR_HOST_SET.has(new URL(response.url).hostname)) {
+        throw new Error('redirected away from Google Scholar');
+      }
+
+      const html = await response.text();
+      parseScholarProfile(html, profile);
+      return html;
+    } catch (error) {
+      failures.push(`${host}: ${error.message}`);
+      if (index < SCHOLAR_HOSTS.length - 1) await new Promise((resolveDelay) => setTimeout(resolveDelay, 750));
+    }
   }
-  if (new URL(response.url).hostname !== 'scholar.google.com') {
-    throw new Error('Scholar redirected the request away from the public profile.');
-  }
-  return response.text();
+
+  throw new Error(`All Scholar profile endpoints failed (${failures.join('; ')}).`);
 }
 
 async function readStandardInput() {
