@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   build-and-deploy:
-    runs-on: ${{ (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && 'macos-latest' || 'ubuntu-latest' }}
+    runs-on: ${{ (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && 'windows-latest' || 'ubuntu-latest' }}
     timeout-minutes: 10
     environment:
       name: github-pages
@@ -37,7 +37,7 @@ jobs:
         run: npm run content:build
       - name: Refresh approved Google Scholar data
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-        run: npm run sync:scholar
+        run: npm run sync:scholar:local
       - name: Test publication uploads
         run: npm run test:content
       - name: Test Scholar parser

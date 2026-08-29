@@ -15,7 +15,7 @@
     "preview:github": "vite preview --config vite.github.config.ts",
     "sync:scholar": "node scripts/sync-scholar.mjs",
     "sync:scholar:local": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/sync-scholar-local.ps1",
-    "check:scholar": "node scripts/sync-scholar.mjs --check",
+    "check:scholar": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/sync-scholar-local.ps1 -Check",
     "test:scholar-sync": "node --test scripts/sync-scholar.test.mjs",
     "test:site": "node --test scripts/site.test.mjs",
     "test:content": "node --test scripts/compile-content.test.mjs",
