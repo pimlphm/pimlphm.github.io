@@ -1,0 +1,40 @@
+{
+  "id": "2026-example-paper",
+  "status": "published",
+  "kind": "Journal",
+  "publishedAt": "2026-01-01",
+  "title": "Official publication title in its published language",
+  "authors": "Author One, Weikun Deng, Author Three",
+  "venue": "Journal or proceedings record",
+  "doi": "10.1234/example.2026.001",
+  "scholarId": "",
+  "topic": {
+    "en": "English topic label",
+    "zh": "中文主题标签"
+  },
+  "projectKind": {
+    "en": "Research project",
+    "zh": "研究项目"
+  },
+  "projectTitle": {
+    "en": "Readable English project title",
+    "zh": "清晰的中文项目标题"
+  },
+  "summary": {
+    "en": "A concise description of the published contribution and verified result.",
+    "zh": "对已发表贡献与经验证结果的简明说明。"
+  },
+  "imageAlt": {
+    "en": "Description of the uploaded research figure",
+    "zh": "上传研究图的中文说明"
+  },
+  "files": ["paper.pdf"],
+  "figures": ["figure-01.png"],
+  "links": [
+    {
+      "label": { "en": "Published article", "zh": "已发表论文" },
+      "href": "https://doi.org/10.1234/example.2026.001"
+    }
+  ],
+  "rightsConfirmed": true
+}

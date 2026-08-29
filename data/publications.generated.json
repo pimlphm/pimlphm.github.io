@@ -1,0 +1,404 @@
+[
+  {
+    "id": "j11",
+    "kind": "Journal",
+    "year": 2026,
+    "title": "Cross scenarios interpretable quantification of maintenance action effects on system health via liquid Kolmogorov–Arnold operator based framework",
+    "authors": "Weikun Deng, Khanh T. P. Nguyen, Phuc Do, Kamal Medjaher",
+    "venue": "Reliability Engineering & System Safety, 112898",
+    "topic": {
+      "en": "Maintenance effects · Interpretable operators",
+      "zh": "维护作用 · 可解释算子"
+    },
+    "links": [
+      {
+        "label": "Publisher",
+        "href": "https://doi.org/10.1016/j.ress.2026.112898"
+      }
+    ]
+  },
+  {
+    "id": "j7",
+    "kind": "Journal",
+    "year": 2026,
+    "title": "Physics-informed transfer learning by embedding physics into activation functions: an application in battery health management",
+    "authors": "Hung Le, Weikun Deng, Khanh T. P. Nguyen, Kamal Medjaher, Christian Gogu, Dazhong Wu",
+    "venue": "Applied Energy 406, 127161",
+    "topic": {
+      "en": "Physics-informed transfer learning · Batteries",
+      "zh": "物理信息迁移学习 · 电池"
+    },
+    "links": [
+      {
+        "label": "Publisher",
+        "href": "https://doi.org/10.1016/j.apenergy.2025.127161"
+      }
+    ]
+  },
+  {
+    "id": "j8",
+    "kind": "Journal",
+    "year": 2026,
+    "title": "Interpretable Health Indicators Construction Under Complex Scenarios for Comprehensive Multi-Component System Monitoring",
+    "authors": "Duc An Nguyen, Weikun Deng, Khanh T. P. Nguyen, Kamal Medjaher",
+    "venue": "ASCE-ASME Journal of Risk and Uncertainty in Engineering Systems, Part B",
+    "topic": {
+      "en": "Health indicators · Multi-component systems",
+      "zh": "健康指标 · 多部件系统"
+    },
+    "links": [
+      {
+        "label": "Publisher",
+        "href": "https://doi.org/10.1115/1.4071056"
+      }
+    ]
+  },
+  {
+    "id": "c6",
+    "kind": "Conference",
+    "year": 2025,
+    "title": "Interpretable Maintenance Impact Quantification Using JEPA-KAN with Self-Supervised Contrastive Learning: An Aircraft Case Study",
+    "authors": "Weikun Deng, Khanh T. P. Nguyen, Phuc Do, Kamal Medjaher",
+    "venue": "MIMAR 2025",
+    "topic": {
+      "en": "Maintenance impact · Interpretable learning",
+      "zh": "维护影响 · 可解释学习"
+    },
+    "links": [
+      {
+        "label": "Programme",
+        "href": "https://easychair.org/smart-program/MIMAR2025/2025-07-08.html"
+      },
+      {
+        "label": "Author copy",
+        "href": "https://drive.google.com/uc?export=download&id=1M9pUarQUPyLVTQImCNUBev-z8-gT1MbV",
+        "download": true
+      }
+    ]
+  },
+  {
+    "id": "c7",
+    "kind": "Conference",
+    "year": 2025,
+    "title": "Towards convexity-aware physics-informed machine learning: A framework for reliable prognostics",
+    "authors": "Weikun Deng, Khanh T. P. Nguyen, Kamal Medjaher",
+    "venue": "Technological Systems, Sustainability and Safety Conference (TS3), Paris",
+    "topic": {
+      "en": "Convexity-aware learning · Prognostics",
+      "zh": "凸性感知学习 · 可靠性预测"
+    },
+    "links": [
+      {
+        "label": "Open record",
+        "href": "https://hal.science/hal-05384813"
+      }
+    ]
+  },
+  {
+    "id": "j4",
+    "kind": "Journal",
+    "year": 2025,
+    "title": "A Generic Physics-Informed Machine Learning Framework for Battery Remaining Useful Life Prediction Using Small Early-Stage Lifecycle Data",
+    "authors": "Weikun Deng, Hung Le, Christian Gogu, Khanh T. P. Nguyen, Kamal Medjaher, Jérôme Morio, Dazhong Wu",
+    "venue": "Applied Energy 384, 125314",
+    "topic": {
+      "en": "Physics-informed learning · Battery RUL",
+      "zh": "物理信息学习 · 电池剩余寿命"
+    },
+    "links": [
+      {
+        "label": "Publisher",
+        "href": "https://doi.org/10.1016/j.apenergy.2025.125314"
+      },
+      {
+        "label": "Full text",
+        "href": "https://drive.google.com/uc?export=download&id=1PWbZrgvd4PgEuJhENpm72pMw30nVdsem",
+        "download": true
+      },
+      {
+        "label": "Code",
+        "href": "https://github.com/pimlphm/PIML-benchmark-architecture"
+      }
+    ]
+  },
+  {
+    "id": "j6",
+    "kind": "Journal",
+    "year": 2025,
+    "title": "In-situ piezoelectric sensors for structural health monitoring with machine learning integration",
+    "authors": "Rogers K. Langat, Weikun Deng, Emmanuel De Luycker, Arthur Cantarel, Micky Rakotondrabe",
+    "venue": "Mechatronics 106, 103297",
+    "topic": {
+      "en": "In-situ sensing · Structural health monitoring",
+      "zh": "原位传感 · 结构健康监测"
+    },
+    "links": [
+      {
+        "label": "Publisher",
+        "href": "https://doi.org/10.1016/j.mechatronics.2025.103297"
+      },
+      {
+        "label": "Full text",
+        "href": "https://drive.google.com/uc?export=download&id=1jBoTiWSnwfM4fQdLhUBzCPcJ2bxOTmiF",
+        "download": true
+      }
+    ]
+  },
+  {
+    "id": "j9",
+    "kind": "Journal",
+    "year": 2025,
+    "title": "E2E Gated-Mamba for cross-scenarios prognostics",
+    "authors": "Weikun Deng, Khanh T. P. Nguyen, Christian Gogu, Kamal Medjaher, Jérôme Morio",
+    "venue": "Mechatronics 111, 103361",
+    "topic": {
+      "en": "State-space models · Cross-scenario prognostics",
+      "zh": "状态空间模型 · 跨场景寿命预测"
+    },
+    "links": [
+      {
+        "label": "Publisher",
+        "href": "https://doi.org/10.1016/j.mechatronics.2025.103361"
+      },
+      {
+        "label": "Manuscript",
+        "href": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5101343"
+      }
+    ]
+  },
+  {
+    "id": "c5",
+    "kind": "Conference",
+    "year": 2024,
+    "title": "A Novel PIML Architecture with Innovative Learning Paradigm Applied in Battery Prognostics",
+    "authors": "Weikun Deng, Hung Le, Dazhong Wu, Khanh T. P. Nguyen, Christian Gogu, Jérôme Morio, Kamal Medjaher",
+    "venue": "CoDIT 2024",
+    "topic": {
+      "en": "Physics-informed learning · Batteries",
+      "zh": "物理信息学习 · 电池"
+    },
+    "links": [
+      {
+        "label": "Publisher",
+        "href": "https://doi.org/10.1109/CoDIT62066.2024.10708278"
+      },
+      {
+        "label": "Code",
+        "href": "https://github.com/pimlphm/PIML-benchmark-architecture"
+      }
+    ]
+  },
+  {
+    "id": "j3",
+    "kind": "Journal",
+    "year": 2024,
+    "title": "Physics-informed machine learning model for inverse dynamics in robotic manipulators",
+    "authors": "Weikun Deng, Fabio Ardiani, Khanh T. P. Nguyen, Mourad Benoussaad, Kamal Medjaher",
+    "venue": "Applied Soft Computing 163, 111877",
+    "topic": {
+      "en": "Inverse dynamics · Robotics",
+      "zh": "逆动力学 · 机器人"
+    },
+    "links": [
+      {
+        "label": "Publisher",
+        "href": "https://doi.org/10.1016/j.asoc.2024.111877"
+      }
+    ]
+  },
+  {
+    "id": "j5",
+    "kind": "Journal",
+    "year": 2024,
+    "title": "Enhancing Prognostics for Sparse Labeled Data Using Advanced Contrastive Self-Supervised Learning with Downstream Integration",
+    "authors": "Weikun Deng, Khanh T. P. Nguyen, Kamal Medjaher, Christian Gogu, Jérôme Morio",
+    "venue": "Engineering Applications of Artificial Intelligence 138, 109268",
+    "topic": {
+      "en": "Contrastive self-supervision · Sparse labels",
+      "zh": "对比自监督学习 · 少标签"
+    },
+    "links": [
+      {
+        "label": "Publisher",
+        "href": "https://doi.org/10.1016/j.engappai.2024.109268"
+      }
+    ]
+  },
+  {
+    "id": "thesis",
+    "kind": "Thesis",
+    "year": 2024,
+    "title": "Improving diagnostics and prognostics in sparse data and scarce knowledge conditions by physics-informed and self-supervised machine learning",
+    "authors": "Weikun Deng",
+    "venue": "Doctoral thesis · Toulouse INP, Université de Toulouse",
+    "topic": {
+      "en": "Physics-informed learning · Self-supervision · PHM",
+      "zh": "物理信息学习 · 自监督学习 · 故障预测与健康管理"
+    },
+    "links": [
+      {
+        "label": "Thesis & PDF",
+        "href": "https://theses.hal.science/tel-04845497v1"
+      }
+    ]
+  },
+  {
+    "id": "c3",
+    "kind": "Conference",
+    "year": 2023,
+    "title": "Bearings RUL prediction based on contrastive self-supervised learning",
+    "authors": "Weikun Deng, Khanh T. P. Nguyen, Kamal Medjaher, Christian Gogu, Jérôme Morio",
+    "venue": "IFAC-PapersOnLine, 11906–11911",
+    "topic": {
+      "en": "Self-supervision · Bearing RUL",
+      "zh": "自监督学习 · 轴承剩余寿命"
+    },
+    "links": [
+      {
+        "label": "Publisher",
+        "href": "https://doi.org/10.1016/j.ifacol.2023.10.604"
+      },
+      {
+        "label": "Full text",
+        "href": "https://drive.google.com/uc?export=download&id=1bPJJV6abv1gsP8BxUMYZc1XfPLl3H-8j",
+        "download": true
+      }
+    ]
+  },
+  {
+    "id": "c4",
+    "kind": "Conference",
+    "year": 2023,
+    "title": "A Few-Shot Learning Framework for Rotor Unbalance and Shaft Crack Fault Diagnostic Based on Physics-Informed Neural Network",
+    "authors": "Weikun Deng, Khanh T. P. Nguyen, Christian Gogu, Jérôme Morio, Kamal Medjaher",
+    "venue": "Structural Health Monitoring 2023",
+    "topic": {
+      "en": "Few-shot learning · Rotor faults",
+      "zh": "少样本学习 · 转子故障"
+    },
+    "links": [
+      {
+        "label": "Proceedings",
+        "href": "https://doi.org/10.12783/shm2023/36985"
+      },
+      {
+        "label": "Full text",
+        "href": "https://dpi-proceedings.com/index.php/shm2023/article/download/36985/35560",
+        "download": true
+      }
+    ]
+  },
+  {
+    "id": "j1",
+    "kind": "Journal",
+    "year": 2023,
+    "title": "Physics-informed machine learning in prognostics and health management: State of the art and challenges",
+    "authors": "Weikun Deng, Khanh T. P. Nguyen, Kamal Medjaher, Christian Gogu, Jérôme Morio",
+    "venue": "Applied Mathematical Modelling 124, 325–352",
+    "topic": {
+      "en": "Review · Physics-informed machine learning",
+      "zh": "综述 · 物理信息机器学习"
+    },
+    "links": [
+      {
+        "label": "Publisher",
+        "href": "https://doi.org/10.1016/j.apm.2023.07.011"
+      }
+    ]
+  },
+  {
+    "id": "j10",
+    "kind": "Journal",
+    "year": 2023,
+    "title": "Running Condition Identification of High-speed Shaft Based on Shaft-end-data Driven LSTM-CNN",
+    "authors": "Yi Cong, Jianjun Du, Jixiong Yin, Haibin Zhu, Weikun Deng, Baoliang Bai, Congyi Fu",
+    "venue": "Journal of Mechanical Engineering 59(1), 131–140",
+    "topic": {
+      "en": "High-speed shafts · Condition identification",
+      "zh": "高速轴系 · 工况识别"
+    },
+    "links": [
+      {
+        "label": "Article",
+        "href": "https://qikan.cmes.org/jxgcxb/EN/10.3901/JME.2023.01.131"
+      },
+      {
+        "label": "Full text",
+        "href": "https://qikan.cmes.org/jxgcxb/EN/PDF/10.3901/JME.2023.01.131",
+        "download": true
+      }
+    ]
+  },
+  {
+    "id": "j2",
+    "kind": "Journal",
+    "year": 2023,
+    "title": "Rotor dynamics informed deep learning for detection, identification, and localization of shaft crack and unbalance defects",
+    "authors": "Weikun Deng, Khanh T. P. Nguyen, Kamal Medjaher, Christian Gogu, Jérôme Morio",
+    "venue": "Advanced Engineering Informatics 58, 102128",
+    "topic": {
+      "en": "Rotor dynamics · Fault diagnosis",
+      "zh": "转子动力学 · 故障诊断"
+    },
+    "links": [
+      {
+        "label": "Publisher",
+        "href": "https://doi.org/10.1016/j.aei.2023.102128"
+      },
+      {
+        "label": "Code",
+        "href": "https://github.com/pimlphm/rfemnn-rotor-diagnostics"
+      }
+    ]
+  },
+  {
+    "id": "c1",
+    "kind": "Conference",
+    "year": 2022,
+    "title": "Physics-informed lightweight temporal convolution networks for fault prognostics associated to bearing stiffness degradation",
+    "authors": "Weikun Deng, Khanh T. P. Nguyen, Christian Gogu, Jérôme Morio, Kamal Medjaher",
+    "venue": "PHM Society European Conference 7(1), 118–125",
+    "topic": {
+      "en": "Temporal convolution · Bearing degradation",
+      "zh": "时间卷积 · 轴承退化"
+    },
+    "links": [
+      {
+        "label": "Proceedings",
+        "href": "https://doi.org/10.36001/phme.2022.v7i1.3365"
+      },
+      {
+        "label": "Full text",
+        "href": "https://drive.google.com/uc?export=download&id=1QFrCa-tmHDd4mNYcOwKXwXYJ-jrBY1hS",
+        "download": true
+      },
+      {
+        "label": "Code",
+        "href": "https://github.com/pimlphm/Physics-informed-machine-learning-based-on-TCN"
+      }
+    ]
+  },
+  {
+    "id": "c2",
+    "kind": "Conference",
+    "year": 2022,
+    "title": "Physics Informed Self Supervised Learning for Fault Diagnostics and Prognostics in the Context of Sparse and Noisy Data",
+    "authors": "Weikun Deng, Khanh T. P. Nguyen, Kamal Medjaher",
+    "venue": "PHM Society European Conference 7(1), 574–576",
+    "topic": {
+      "en": "Self-supervision · Sparse and noisy data",
+      "zh": "自监督学习 · 稀疏与噪声数据"
+    },
+    "links": [
+      {
+        "label": "Proceedings",
+        "href": "https://doi.org/10.36001/phme.2022.v7i1.3298"
+      },
+      {
+        "label": "Full text",
+        "href": "https://drive.google.com/uc?export=download&id=1OKtikNifO667AD0fQggxjhSUVrhzpn1n",
+        "download": true
+      }
+    ]
+  }
+]

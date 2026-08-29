@@ -73,6 +73,25 @@ test('fails closed when an unreviewed Scholar record appears', () => {
   assert.throws(() => buildSnapshot(current, parsed), /Unreviewed Scholar records found/);
 });
 
+test('a publication upload can explicitly approve its Scholar record', () => {
+  const current = {
+    profile: { userId: 'test-user', expectedName: 'Weikun DENG', distinctOutputs: 1 },
+    ignoredScholarIds: [],
+    works: { paper: { scholarId: 'alpha', citations: 0, href: '' } },
+  };
+  const parsed = parseScholarProfile(
+    profileHtml(`${publicationRow('alpha', 9)}${publicationRow('new-record')}`, 9),
+    { expectedName: 'Weikun DENG', userId: 'test-user' },
+  );
+
+  const next = buildSnapshot(current, parsed, new Date('2026-09-07T02:17:00Z'), [
+    { id: 'new-paper', scholarId: 'new-record' },
+  ]);
+  assert.equal(next.profile.distinctOutputs, 2);
+  assert.equal(next.works['new-paper'].scholarId, 'new-record');
+  assert.equal(next.works['new-paper'].citations, 0);
+});
+
 test('rejects traffic-check pages before parsing', () => {
   const blocked = `<html><body>Weikun DENG unusual traffic${' '.repeat(10_000)}</body></html>`;
   assert.throws(

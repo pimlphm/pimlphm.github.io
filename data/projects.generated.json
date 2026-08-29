@@ -1,0 +1,751 @@
+[
+  {
+    "id": "battery-physics-transfer",
+    "year": 2026,
+    "kind": {
+      "en": "Physics-informed transfer",
+      "zh": "物理信息迁移学习"
+    },
+    "title": {
+      "en": "Embedding battery physics into transfer-learning activations",
+      "zh": "将电池物理机理嵌入迁移学习激活函数"
+    },
+    "summary": {
+      "en": "Physics is introduced directly through activation functions to transfer battery-health knowledge across data regimes while retaining an engineering interpretation.",
+      "zh": "通过激活函数直接嵌入物理机理，在不同数据条件间迁移电池健康知识，并保留工程可解释性。"
+    },
+    "tags": {
+      "en": "Battery health · Transfer learning · Physics",
+      "zh": "电池健康 · 迁移学习 · 物理机理"
+    },
+    "publicationIds": [
+      "j7"
+    ],
+    "links": [
+      {
+        "label": {
+          "en": "Published article",
+          "zh": "已发表论文"
+        },
+        "href": "https://doi.org/10.1016/j.apenergy.2025.127161"
+      }
+    ]
+  },
+  {
+    "id": "liquid-kao-maintenance",
+    "year": 2026,
+    "kind": {
+      "en": "Interpretable operators · Maintenance effects",
+      "zh": "可解释算子 · 维护效果"
+    },
+    "title": {
+      "en": "Liquid KAO–based maintenance-effect evaluation",
+      "zh": "基于液态 KAO 的维护效果评估"
+    },
+    "summary": {
+      "en": "Liquid Kolmogorov–Arnold operators expose degradation mechanisms while pre- and post-maintenance trajectories quantify whether an action produces strong, general or weak health recovery.",
+      "zh": "液态 Kolmogorov–Arnold 算子揭示退化机理，并通过维护前后健康轨迹量化干预带来的显著、一般或较弱恢复效果。"
+    },
+    "tags": {
+      "en": "Liquid KAO · Interpretable operators · Action impact",
+      "zh": "液态 KAO · 可解释算子 · 维护影响"
+    },
+    "image": "/research/maintenance-action-effects.png",
+    "imageAlt": {
+      "en": "Health trajectories before and after different maintenance actions",
+      "zh": "不同维护措施前后的健康轨迹"
+    },
+    "publicationIds": [
+      "j11",
+      "c6"
+    ],
+    "links": [
+      {
+        "label": {
+          "en": "Journal article",
+          "zh": "期刊论文"
+        },
+        "href": "https://doi.org/10.1016/j.ress.2026.112898"
+      },
+      {
+        "label": {
+          "en": "Aircraft case",
+          "zh": "飞机案例"
+        },
+        "href": "https://easychair.org/smart-program/MIMAR2025/2025-07-08.html"
+      }
+    ]
+  },
+  {
+    "id": "multi-component-health-indicators",
+    "year": 2026,
+    "kind": {
+      "en": "Interpretable monitoring",
+      "zh": "可解释监测"
+    },
+    "title": {
+      "en": "Health indicators for complex multi-component systems",
+      "zh": "复杂多部件系统的可解释健康指标"
+    },
+    "summary": {
+      "en": "A monitoring framework constructs interpretable health indicators across interacting components and changing scenarios instead of relying on a single opaque score.",
+      "zh": "面向部件相互作用与场景变化构建可解释健康指标，避免仅依赖单一黑箱分数。"
+    },
+    "tags": {
+      "en": "Multi-component systems · Health indicators · Monitoring",
+      "zh": "多部件系统 · 健康指标 · 状态监测"
+    },
+    "publicationIds": [
+      "j8"
+    ],
+    "links": [
+      {
+        "label": {
+          "en": "Published article",
+          "zh": "已发表论文"
+        },
+        "href": "https://doi.org/10.1115/1.4071056"
+      }
+    ]
+  },
+  {
+    "id": "satellite-knowledge-distillation",
+    "year": 2026,
+    "kind": {
+      "en": "Engineering case study",
+      "zh": "工程案例"
+    },
+    "title": {
+      "en": "Ground-to-orbit knowledge distillation for satellite FDIR",
+      "zh": "面向卫星 FDIR 的地面到在轨知识蒸馏"
+    },
+    "summary": {
+      "en": "A deep teacher learns anomaly, fault-family, recovery and risk signals from public ESA telemetry; an auditable tree-based student retains the decision path for lightweight screening.",
+      "zh": "深层教师模型从公开 ESA 遥测数据中学习异常、故障类别、恢复与风险信号，再蒸馏为决策路径可审计的轻量树模型。"
+    },
+    "tags": {
+      "en": "Knowledge distillation · ESA telemetry · Satellite FDIR",
+      "zh": "知识蒸馏 · ESA 遥测 · 卫星 FDIR"
+    },
+    "image": "/research/satellite-distillation.png",
+    "imageAlt": {
+      "en": "Teacher-to-student knowledge-distillation pipeline for satellite monitoring",
+      "zh": "卫星监测的教师—学生知识蒸馏流程"
+    },
+    "publicationIds": [],
+    "links": [
+      {
+        "label": {
+          "en": "Public telemetry",
+          "zh": "公开遥测数据"
+        },
+        "href": "https://zenodo.org/records/15237121"
+      },
+      {
+        "label": {
+          "en": "Simulation platform",
+          "zh": "仿真平台"
+        },
+        "href": "https://github.com/AVSLab/basilisk"
+      }
+    ]
+  },
+  {
+    "id": "aircraft-jepa-kan-maintenance",
+    "year": 2025,
+    "kind": {
+      "en": "Aircraft maintenance",
+      "zh": "飞机维护"
+    },
+    "title": {
+      "en": "Interpretable JEPA-KAN maintenance-impact identification",
+      "zh": "可解释 JEPA-KAN 飞机维护影响识别"
+    },
+    "summary": {
+      "en": "Self-supervised contrastive learning and a KAN-based representation quantify maintenance impact in an aircraft case without requiring dense action-effect labels.",
+      "zh": "结合自监督对比学习与 KAN 表征，在缺少密集维护效果标签时量化飞机维护影响。"
+    },
+    "tags": {
+      "en": "JEPA-KAN · Aircraft · Maintenance impact",
+      "zh": "JEPA-KAN · 飞机 · 维护影响"
+    },
+    "publicationIds": [
+      "c6"
+    ],
+    "links": [
+      {
+        "label": {
+          "en": "Conference programme",
+          "zh": "会议日程"
+        },
+        "href": "https://easychair.org/smart-program/MIMAR2025/2025-07-08.html"
+      }
+    ]
+  },
+  {
+    "id": "battery-small-data-piml",
+    "year": 2025,
+    "kind": {
+      "en": "Battery prognostics",
+      "zh": "电池寿命预测"
+    },
+    "title": {
+      "en": "Battery RUL prediction from small early-life data",
+      "zh": "基于少量早期寿命数据的电池剩余寿命预测"
+    },
+    "summary": {
+      "en": "A generic physics-informed architecture combines early-cycle observations with degradation knowledge to estimate remaining useful life under limited data.",
+      "zh": "通用物理信息架构融合早期循环观测与退化知识，在有限数据条件下估计电池剩余寿命。"
+    },
+    "tags": {
+      "en": "Battery RUL · Small data · PIML",
+      "zh": "电池剩余寿命 · 小数据 · PIML"
+    },
+    "publicationIds": [
+      "j4",
+      "c5"
+    ],
+    "links": [
+      {
+        "label": {
+          "en": "Published article",
+          "zh": "已发表论文"
+        },
+        "href": "https://doi.org/10.1016/j.apenergy.2025.125314"
+      },
+      {
+        "label": {
+          "en": "Source code",
+          "zh": "开源代码"
+        },
+        "href": "https://github.com/pimlphm/PIML-benchmark-architecture"
+      }
+    ]
+  },
+  {
+    "id": "convexity-aware-piml",
+    "year": 2025,
+    "kind": {
+      "en": "Reliable learning",
+      "zh": "可靠学习"
+    },
+    "title": {
+      "en": "Convexity-aware physics-informed prognostics",
+      "zh": "面向可靠寿命预测的凸性感知物理信息学习"
+    },
+    "summary": {
+      "en": "The learning objective incorporates convexity-aware structure to improve the reliability and stability of prognostic models.",
+      "zh": "在学习目标中引入凸性感知结构，以提升寿命预测模型的可靠性与稳定性。"
+    },
+    "tags": {
+      "en": "Convexity · Reliability · Prognostics",
+      "zh": "凸性 · 可靠性 · 寿命预测"
+    },
+    "publicationIds": [
+      "c7"
+    ],
+    "links": [
+      {
+        "label": {
+          "en": "Conference record",
+          "zh": "会议记录"
+        },
+        "href": "https://hal.science/hal-05384813"
+      }
+    ]
+  },
+  {
+    "id": "gated-mamba-prognostics",
+    "year": 2025,
+    "kind": {
+      "en": "State-space prognostics",
+      "zh": "状态空间寿命预测"
+    },
+    "title": {
+      "en": "E2E Gated-Mamba across prognostic scenarios",
+      "zh": "面向跨场景寿命预测的端到端 Gated-Mamba"
+    },
+    "summary": {
+      "en": "A gated selective state-space architecture is evaluated under operating shifts and increasing noise to test cross-scenario robustness end to end.",
+      "zh": "在工况变化与噪声增强条件下评估门控选择性状态空间架构，检验端到端跨场景鲁棒性。"
+    },
+    "tags": {
+      "en": "Mamba · Cross-scenario PHM · Robustness",
+      "zh": "Mamba · 跨场景 PHM · 鲁棒性"
+    },
+    "image": "/research/gated-mamba-noise.png",
+    "imageAlt": {
+      "en": "Gated-Mamba prognostics under increasing noise",
+      "zh": "噪声增强条件下的 Gated-Mamba 寿命预测"
+    },
+    "publicationIds": [
+      "j9"
+    ],
+    "links": [
+      {
+        "label": {
+          "en": "Published article",
+          "zh": "已发表论文"
+        },
+        "href": "https://doi.org/10.1016/j.mechatronics.2025.103361"
+      }
+    ]
+  },
+  {
+    "id": "in-situ-piezo-shm",
+    "year": 2025,
+    "kind": {
+      "en": "Smart sensing",
+      "zh": "智能感知"
+    },
+    "title": {
+      "en": "In-situ piezoelectric sensing with machine-learning integration",
+      "zh": "原位压电传感与机器学习融合"
+    },
+    "summary": {
+      "en": "Piezoelectric sensing is integrated with machine learning to turn structural measurements into actionable health-monitoring information.",
+      "zh": "将压电传感与机器学习融合，把结构测量信号转化为可用于健康监测的工程信息。"
+    },
+    "tags": {
+      "en": "Piezoelectric sensors · SHM · Machine learning",
+      "zh": "压电传感器 · 结构健康监测 · 机器学习"
+    },
+    "publicationIds": [
+      "j6"
+    ],
+    "links": [
+      {
+        "label": {
+          "en": "Published article",
+          "zh": "已发表论文"
+        },
+        "href": "https://doi.org/10.1016/j.mechatronics.2025.103297"
+      }
+    ]
+  },
+  {
+    "id": "liquid-operator-general-phm",
+    "year": 2025,
+    "kind": {
+      "en": "Public preprint · not peer reviewed",
+      "zh": "公开预印本 · 未经同行评议"
+    },
+    "title": {
+      "en": "Interpretable liquid neural operators for cross-scenario PHM",
+      "zh": "面向跨场景 PHM 的可解释液体神经算子"
+    },
+    "summary": {
+      "en": "A liquid-operator-informed selective state-space model exposes how operator families and channel weights change across tools, bearings and batteries.",
+      "zh": "液体算子信息的选择性状态空间模型呈现不同算子族及通道权重如何随刀具、轴承与电池场景变化。"
+    },
+    "tags": {
+      "en": "Liquid NN · Selective state space · Cross-scenario PHM",
+      "zh": "液体神经网络 · 选择性状态空间 · 跨场景 PHM"
+    },
+    "image": "/research/liquid-operator-preprint.png",
+    "imageAlt": {
+      "en": "Operator dynamics across battery channels and remaining useful life",
+      "zh": "电池通道与剩余寿命上的算子动态"
+    },
+    "publicationIds": [],
+    "links": [
+      {
+        "label": {
+          "en": "Public preprint",
+          "zh": "公开预印本"
+        },
+        "href": "https://ssrn.com/abstract=5149848"
+      }
+    ]
+  },
+  {
+    "id": "contrastive-ssl-bearing",
+    "year": 2024,
+    "kind": {
+      "en": "Self-supervised learning",
+      "zh": "自监督学习"
+    },
+    "title": {
+      "en": "Contrastive representations for sparse-label bearing prognostics",
+      "zh": "面向少标签轴承寿命预测的对比表征学习"
+    },
+    "summary": {
+      "en": "Contrastive pretext learning extracts reusable degradation features before downstream RUL modelling, reducing dependence on densely labelled trajectories.",
+      "zh": "先通过对比预任务学习提取可迁移退化特征，再开展下游剩余寿命建模，降低对密集标签轨迹的依赖。"
+    },
+    "tags": {
+      "en": "Contrastive SSL · Bearings · Sparse labels",
+      "zh": "对比自监督 · 轴承 · 少标签"
+    },
+    "image": "/research/ssl-bearing.png",
+    "imageAlt": {
+      "en": "Contrastive self-supervised learning workflow for bearing prognostics",
+      "zh": "轴承寿命预测的对比自监督学习流程"
+    },
+    "publicationIds": [
+      "j5",
+      "c3"
+    ],
+    "links": [
+      {
+        "label": {
+          "en": "Published article",
+          "zh": "已发表论文"
+        },
+        "href": "https://doi.org/10.1016/j.engappai.2024.109268"
+      }
+    ]
+  },
+  {
+    "id": "doctoral-piml-ssl-synthesis",
+    "year": 2024,
+    "kind": {
+      "en": "Doctoral research",
+      "zh": "博士研究"
+    },
+    "title": {
+      "en": "PT-500 IoT PHM platform and doctoral research synthesis",
+      "zh": "PT-500 物联网 PHM 平台与博士研究体系"
+    },
+    "summary": {
+      "en": "The completed doctoral programme connects a PT-500 monitoring platform with physics-informed modelling, self-supervision, rotor diagnostics and sparse-data prognostics.",
+      "zh": "已完成的博士研究把 PT-500 监测平台与物理信息建模、自监督学习、转子诊断及稀疏数据寿命预测贯通起来。"
+    },
+    "tags": {
+      "en": "Doctoral thesis · PIML · Self-supervision",
+      "zh": "博士论文 · PIML · 自监督学习"
+    },
+    "image": "/research/aero-engine-cutaway.gif",
+    "imageAlt": {
+      "en": "Animated aero-engine cutaway linked to the doctoral research archive",
+      "zh": "与博士研究档案相关的航空发动机剖视动画"
+    },
+    "publicationIds": [
+      "thesis"
+    ],
+    "links": [
+      {
+        "label": {
+          "en": "Thesis and PDF",
+          "zh": "博士论文与 PDF"
+        },
+        "href": "https://theses.hal.science/tel-04845497v1"
+      }
+    ],
+    "displayYear": "2021—2024"
+  },
+  {
+    "id": "robot-inverse-dynamics",
+    "year": 2024,
+    "kind": {
+      "en": "Robotics",
+      "zh": "机器人"
+    },
+    "title": {
+      "en": "Physics-informed inverse dynamics for robotic manipulators",
+      "zh": "机器人机械臂的物理信息逆动力学"
+    },
+    "summary": {
+      "en": "Mechanical structure and data-driven learning are combined to estimate manipulator inverse dynamics with a model that remains connected to physical behaviour.",
+      "zh": "融合机械结构与数据驱动学习，估计机械臂逆动力学，同时保持模型与物理行为之间的联系。"
+    },
+    "tags": {
+      "en": "Inverse dynamics · Manipulators · PIML",
+      "zh": "逆动力学 · 机械臂 · PIML"
+    },
+    "image": "/research/robot-inverse-dynamics.png",
+    "imageAlt": {
+      "en": "Physics-informed inverse-dynamics architecture for a robot manipulator",
+      "zh": "机器人机械臂物理信息逆动力学架构"
+    },
+    "publicationIds": [
+      "j3"
+    ],
+    "links": [
+      {
+        "label": {
+          "en": "Published article",
+          "zh": "已发表论文"
+        },
+        "href": "https://doi.org/10.1016/j.asoc.2024.111877"
+      }
+    ]
+  },
+  {
+    "id": "high-speed-shaft-identification",
+    "year": 2023,
+    "kind": {
+      "en": "Shaft monitoring",
+      "zh": "轴系监测"
+    },
+    "title": {
+      "en": "High-speed shaft condition identification from shaft-end data",
+      "zh": "基于轴端数据的高速轴运行状态识别"
+    },
+    "summary": {
+      "en": "An LSTM-CNN model turns shaft-end measurements into operating-condition labels for high-speed rotating systems.",
+      "zh": "利用 LSTM-CNN 将轴端测量信号转化为高速旋转系统的运行状态类别。"
+    },
+    "tags": {
+      "en": "High-speed shafts · LSTM-CNN · Condition monitoring",
+      "zh": "高速轴 · LSTM-CNN · 状态监测"
+    },
+    "publicationIds": [
+      "j10"
+    ],
+    "links": [
+      {
+        "label": {
+          "en": "Published article",
+          "zh": "已发表论文"
+        },
+        "href": "https://qikan.cmes.org/jxgcxb/EN/10.3901/JME.2023.01.131"
+      }
+    ]
+  },
+  {
+    "id": "piml-phm-review",
+    "year": 2023,
+    "kind": {
+      "en": "Research synthesis",
+      "zh": "研究综述"
+    },
+    "title": {
+      "en": "Physics-informed machine learning for PHM",
+      "zh": "面向 PHM 的物理信息机器学习体系"
+    },
+    "summary": {
+      "en": "A structured review maps how physical knowledge enters data, architectures, loss functions and hybrid models for diagnostics and prognostics.",
+      "zh": "系统梳理物理知识如何进入数据、模型架构、损失函数与混合模型，用于故障诊断和寿命预测。"
+    },
+    "tags": {
+      "en": "Review · PIML · Diagnostics and prognostics",
+      "zh": "综述 · PIML · 诊断与预测"
+    },
+    "publicationIds": [
+      "j1"
+    ],
+    "links": [
+      {
+        "label": {
+          "en": "Published article",
+          "zh": "已发表论文"
+        },
+        "href": "https://doi.org/10.1016/j.apm.2023.07.011"
+      }
+    ]
+  },
+  {
+    "id": "rotor-rfemnn-diagnostics",
+    "year": 2023,
+    "kind": {
+      "en": "Rotor diagnostics",
+      "zh": "转子故障诊断"
+    },
+    "title": {
+      "en": "Rotor-dynamics-informed crack and unbalance diagnosis",
+      "zh": "转子动力学信息的裂纹与不平衡诊断"
+    },
+    "summary": {
+      "en": "Finite-element rotor knowledge shapes a deep model for detecting, identifying and localising shaft cracks and unbalance with few labelled examples.",
+      "zh": "以转子有限元知识塑造深度模型，在少量标签条件下检测、识别并定位轴裂纹与不平衡故障。"
+    },
+    "tags": {
+      "en": "Rotor dynamics · RFEMNN · Few-shot learning",
+      "zh": "转子动力学 · RFEMNN · 少样本学习"
+    },
+    "image": "/research/twin-rotor.gif",
+    "imageAlt": {
+      "en": "Animated twin-rotor finite-element model",
+      "zh": "双转子有限元模型动画"
+    },
+    "publicationIds": [
+      "j2",
+      "c4"
+    ],
+    "links": [
+      {
+        "label": {
+          "en": "Published article",
+          "zh": "已发表论文"
+        },
+        "href": "https://doi.org/10.1016/j.aei.2023.102128"
+      },
+      {
+        "label": {
+          "en": "Source code",
+          "zh": "开源代码"
+        },
+        "href": "https://github.com/pimlphm/rfemnn-rotor-diagnostics"
+      }
+    ]
+  },
+  {
+    "id": "physics-informed-ssl-sparse-noisy",
+    "year": 2022,
+    "kind": {
+      "en": "Sparse-data PHM",
+      "zh": "稀疏数据 PHM"
+    },
+    "title": {
+      "en": "Physics-informed self-supervision with sparse and noisy data",
+      "zh": "稀疏含噪数据下的物理信息自监督学习"
+    },
+    "summary": {
+      "en": "Physics-informed pretext tasks support fault diagnosis and prognostics when labels are scarce and monitoring signals are noisy.",
+      "zh": "在标签稀缺且监测信号含噪时，通过物理信息预任务支撑故障诊断与寿命预测。"
+    },
+    "tags": {
+      "en": "Self-supervision · Sparse data · Noise",
+      "zh": "自监督学习 · 稀疏数据 · 噪声"
+    },
+    "publicationIds": [
+      "c2"
+    ],
+    "links": [
+      {
+        "label": {
+          "en": "Conference paper",
+          "zh": "会议论文"
+        },
+        "href": "https://doi.org/10.36001/phme.2022.v7i1.3298"
+      }
+    ]
+  },
+  {
+    "id": "physics-informed-tcn-bearing",
+    "year": 2022,
+    "kind": {
+      "en": "Lightweight prognostics",
+      "zh": "轻量寿命预测"
+    },
+    "title": {
+      "en": "Physics-informed TCN for bearing-stiffness degradation",
+      "zh": "面向轴承刚度退化的物理信息 TCN"
+    },
+    "summary": {
+      "en": "A lightweight temporal convolution network incorporates degradation physics for bearing prognostics and efficient implementation.",
+      "zh": "轻量级时间卷积网络融入轴承退化物理知识，用于高效寿命预测。"
+    },
+    "tags": {
+      "en": "Temporal convolution · Bearings · Physics",
+      "zh": "时间卷积 · 轴承 · 物理机理"
+    },
+    "publicationIds": [
+      "c1"
+    ],
+    "links": [
+      {
+        "label": {
+          "en": "Conference paper",
+          "zh": "会议论文"
+        },
+        "href": "https://doi.org/10.36001/phme.2022.v7i1.3365"
+      },
+      {
+        "label": {
+          "en": "Source code",
+          "zh": "开源代码"
+        },
+        "href": "https://github.com/pimlphm/Physics-informed-machine-learning-based-on-TCN"
+      }
+    ]
+  },
+  {
+    "id": "flexible-electronics-shm",
+    "year": 2021,
+    "displayYear": "2020—2021",
+    "kind": {
+      "en": "Completed engineering project",
+      "zh": "已完成工程项目"
+    },
+    "title": {
+      "en": "Flexible-electronics SHM and rotating-machinery diagnosis",
+      "zh": "柔性电子结构健康监测与旋转机械诊断"
+    },
+    "summary": {
+      "en": "Diagnostic-system R&D combined flexible sensing, condition monitoring and an axle-system fit-monitoring prototype for rotating machinery.",
+      "zh": "诊断系统研发融合柔性传感、状态监测与轴系装配状态监测原型，服务旋转机械工程验证。"
+    },
+    "tags": {
+      "en": "Flexible sensing · SHM · Rotating machinery",
+      "zh": "柔性传感 · 结构健康监测 · 旋转机械"
+    },
+    "publicationIds": [],
+    "links": []
+  },
+  {
+    "id": "aero-engine-diagnostic-system",
+    "year": 2020,
+    "displayYear": "2017—2020",
+    "kind": {
+      "en": "Completed engineering project",
+      "zh": "已完成工程项目"
+    },
+    "title": {
+      "en": "Typical aero-engine fault-diagnosis system",
+      "zh": "典型航空发动机故障诊断系统"
+    },
+    "summary": {
+      "en": "A diagnostic software module and engineering rule base connected vibration evidence with typical structural-fault identification.",
+      "zh": "构建诊断软件模块与工程规则库，将振动证据连接到典型结构故障识别。"
+    },
+    "tags": {
+      "en": "Fault diagnosis · Rule base · Engineering software",
+      "zh": "故障诊断 · 规则库 · 工程软件"
+    },
+    "publicationIds": [],
+    "links": []
+  },
+  {
+    "id": "aero-engine-rubbing-dynamics",
+    "year": 2020,
+    "displayYear": "2017—2020",
+    "kind": {
+      "en": "Completed engineering project",
+      "zh": "已完成工程项目"
+    },
+    "title": {
+      "en": "Aero-engine rubbing dynamics: modelling, simulation and experiments",
+      "zh": "航空发动机碰摩动力学建模、仿真与试验"
+    },
+    "summary": {
+      "en": "Rotor–stator rubbing was studied through dynamic modelling, numerical simulation and experimental verification across representative operating conditions.",
+      "zh": "围绕典型运行工况，通过动力学建模、数值仿真与试验验证研究转静子碰摩行为。"
+    },
+    "tags": {
+      "en": "Aero-engines · Rubbing dynamics · Experiments",
+      "zh": "航空发动机 · 碰摩动力学 · 试验验证"
+    },
+    "image": "/research/aero-engine-cutaway.gif",
+    "imageAlt": {
+      "en": "Animated aero-engine cutaway",
+      "zh": "航空发动机剖视动画"
+    },
+    "publicationIds": [],
+    "links": []
+  },
+  {
+    "id": "aero-engine-vibration-validation",
+    "year": 2020,
+    "displayYear": "2017—2020",
+    "kind": {
+      "en": "Completed engineering project",
+      "zh": "已完成工程项目"
+    },
+    "title": {
+      "en": "Aero-engine vibration and modal verification",
+      "zh": "航空发动机振动监测与模态验证"
+    },
+    "summary": {
+      "en": "Monitoring integration, bench verification and on-site engine-test support connected model results to measured vibration behaviour.",
+      "zh": "通过监测系统集成、台架验证与现场发动机试车支持，把模型结果与实测振动行为相互验证。"
+    },
+    "tags": {
+      "en": "Vibration monitoring · Modal verification · Test support",
+      "zh": "振动监测 · 模态验证 · 试验支持"
+    },
+    "publicationIds": [],
+    "links": []
+  }
+]

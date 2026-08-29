@@ -4,12 +4,15 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import scholarData from '../data/scholar.json';
+import publicationData from '../data/publications.generated.json';
+import projectData from '../data/projects.generated.json';
 
 type Language = 'en' | 'zh';
 type PublicationKind = 'Journal' | 'Conference' | 'Thesis';
+type LocalizedText = { en: string; zh: string };
 
 type PublicationLink = {
-  label: string;
+  label: string | LocalizedText;
   href: string;
   download?: boolean;
 };
@@ -21,8 +24,22 @@ type Publication = {
   title: string;
   authors: string;
   venue: string;
-  topic: string;
+  topic: LocalizedText;
   links: PublicationLink[];
+};
+
+type ResearchProject = {
+  id: string;
+  year: number;
+  displayYear?: string;
+  kind: LocalizedText;
+  title: LocalizedText;
+  summary: LocalizedText;
+  tags: LocalizedText;
+  image?: string;
+  imageAlt?: LocalizedText;
+  publicationIds: string[];
+  links: Array<{ label: LocalizedText; href: string }>;
 };
 
 type ScholarWorkImpact = {
@@ -32,6 +49,8 @@ type ScholarWorkImpact = {
 
 const scholarProfile = scholarData.profile;
 const scholarImpactByPublication: Record<string, ScholarWorkImpact> = scholarData.works;
+const publications = publicationData as Publication[];
+const researchProjects = projectData as ResearchProject[];
 
 const uiCopy = {
   en: {
@@ -40,7 +59,7 @@ const uiCopy = {
     languageAria: 'Choose language',
     english: 'EN',
     chinese: '中文',
-    navResearch: 'Research',
+    navProjects: 'Projects',
     navPublications: 'Publications',
     navCode: 'Source code',
     navLife: 'Beyond research',
@@ -63,9 +82,16 @@ const uiCopy = {
     researchEyebrow: 'Published research threads',
     researchHeadingOne: 'From physical evidence',
     researchHeadingTwo: 'to engineering decisions.',
-    evidenceEyebrow: 'Selected visual evidence',
-    evidenceHeading: 'Methods you can see.',
-    evidenceIntro: 'Figures from published articles reveal the path from engineering mechanism, through representation, to a measurable diagnostic or prognostic result.',
+    evidenceEyebrow: 'Research project archive · 2017—2026',
+    evidenceHeading: 'Projects, year by year.',
+    evidenceIntro: 'Scroll through completed research and engineering projects. Published methods, technical cases, figures, motion studies, papers and code remain connected in one chronological record.',
+    projectIndexAria: 'Jump to a project year',
+    projectArchiveAria: 'Research projects grouped by year',
+    projectSingular: 'project',
+    projectPlural: 'projects',
+    linkedOutput: 'linked output',
+    linkedOutputs: 'linked outputs',
+    technicalCase: 'documented case',
     motionAria: 'Animated engineering studies',
     motionOneLabel: 'Motion study 01',
     motionOneTitle: 'Twin-rotor dynamics',
@@ -135,7 +161,7 @@ const uiCopy = {
     languageAria: '选择语言',
     english: 'EN',
     chinese: '中文',
-    navResearch: '研究',
+    navProjects: '项目',
     navPublications: '论文成果',
     navCode: '开源代码',
     navLife: '研究之外',
@@ -158,9 +184,16 @@ const uiCopy = {
     researchEyebrow: '已发表研究方向',
     researchHeadingOne: '从物理证据出发，',
     researchHeadingTwo: '走向工程决策。',
-    evidenceEyebrow: '代表性成果图示',
-    evidenceHeading: '让方法清晰可见。',
-    evidenceIntro: '已发表论文中的图示呈现了从工程机理、特征表征到可量化诊断与预测结果的完整路径。',
+    evidenceEyebrow: '研究项目档案 · 2017—2026',
+    evidenceHeading: '按年份浏览全部项目。',
+    evidenceIntro: '沿时间向下滚动，查看已经完成的研究与工程项目；论文方法、技术案例、成果图、动图、原文和代码在同一条时间线上相互关联。',
+    projectIndexAria: '跳转到项目年份',
+    projectArchiveAria: '按年份分组的研究项目',
+    projectSingular: '个项目',
+    projectPlural: '个项目',
+    linkedOutput: '项关联成果',
+    linkedOutputs: '项关联成果',
+    technicalCase: '项技术案例',
     motionAria: '工程研究动图',
     motionOneLabel: '动态研究 01',
     motionOneTitle: '双转子动力学',
@@ -265,273 +298,6 @@ const researchThreads = [
   },
 ];
 
-const researchFigures = [
-  {
-    number: '01',
-    image: '/research/rotor-rfemnn.png',
-    alt: 'Rotor model and physics-informed neural architecture diagram',
-    kicker: 'Rotor systems · 2023',
-    title: 'Mechanics becomes model structure',
-    detail: 'A rotor-dynamics-informed deep network for crack and unbalance detection, identification and localisation.',
-    href: 'https://doi.org/10.1016/j.aei.2023.102128',
-  },
-  {
-    number: '02',
-    image: '/research/ssl-bearing.png',
-    alt: 'Contrastive self-supervised learning workflow for bearing prognostics',
-    kicker: 'Bearings · 2024',
-    title: 'Learning useful signals without abundant labels',
-    detail: 'A contrastive self-supervised workflow that connects pretext learning to downstream prognostics.',
-    href: 'https://doi.org/10.1016/j.engappai.2024.109268',
-  },
-  {
-    number: '03',
-    image: '/research/robot-inverse-dynamics.png',
-    alt: 'Physics-informed inverse-dynamics model for a robotic manipulator',
-    kicker: 'Robotics · 2024',
-    title: 'Physics guides inverse dynamics',
-    detail: 'A structured learning model for inverse dynamics in robotic manipulators.',
-    href: 'https://doi.org/10.1016/j.asoc.2024.111877',
-  },
-  {
-    number: '04',
-    image: '/research/gated-mamba-noise.png',
-    alt: 'Cross-scenario prognostics results under increasing noise',
-    kicker: 'Cross-scenario PHM · 2025',
-    title: 'Robustness across operating scenarios',
-    detail: 'An end-to-end gated state-space architecture evaluated across changing prognostic scenarios.',
-    href: 'https://doi.org/10.1016/j.mechatronics.2025.103361',
-  },
-];
-
-const publications: Publication[] = [
-  {
-    id: 'j11',
-    kind: 'Journal',
-    year: 2026,
-    title: 'Cross scenarios interpretable quantification of maintenance action effects on system health via liquid Kolmogorov–Arnold operator based framework',
-    authors: 'Weikun Deng, Khanh T. P. Nguyen, Phuc Do, Kamal Medjaher',
-    venue: 'Reliability Engineering & System Safety, 112898',
-    topic: 'Maintenance effects · Interpretable operators',
-    links: [{ label: 'Publisher', href: 'https://doi.org/10.1016/j.ress.2026.112898' }],
-  },
-  {
-    id: 'j8',
-    kind: 'Journal',
-    year: 2026,
-    title: 'Interpretable Health Indicators Construction Under Complex Scenarios for Comprehensive Multi-Component System Monitoring',
-    authors: 'Duc An Nguyen, Weikun Deng, Khanh T. P. Nguyen, Kamal Medjaher',
-    venue: 'ASCE-ASME Journal of Risk and Uncertainty in Engineering Systems, Part B',
-    topic: 'Health indicators · Multi-component systems',
-    links: [{ label: 'Publisher', href: 'https://doi.org/10.1115/1.4071056' }],
-  },
-  {
-    id: 'j7',
-    kind: 'Journal',
-    year: 2026,
-    title: 'Physics-informed transfer learning by embedding physics into activation functions: an application in battery health management',
-    authors: 'Hung Le, Weikun Deng, Khanh T. P. Nguyen, Kamal Medjaher, Christian Gogu, Dazhong Wu',
-    venue: 'Applied Energy 406, 127161',
-    topic: 'Physics-informed transfer learning · Batteries',
-    links: [{ label: 'Publisher', href: 'https://doi.org/10.1016/j.apenergy.2025.127161' }],
-  },
-  {
-    id: 'j9',
-    kind: 'Journal',
-    year: 2025,
-    title: 'E2E Gated-Mamba for cross-scenarios prognostics',
-    authors: 'Weikun Deng, Khanh T. P. Nguyen, Christian Gogu, Kamal Medjaher, Jérôme Morio',
-    venue: 'Mechatronics 111, 103361',
-    topic: 'State-space models · Cross-scenario prognostics',
-    links: [
-      { label: 'Publisher', href: 'https://doi.org/10.1016/j.mechatronics.2025.103361' },
-      { label: 'Manuscript', href: 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5101343' },
-    ],
-  },
-  {
-    id: 'j6',
-    kind: 'Journal',
-    year: 2025,
-    title: 'In-situ piezoelectric sensors for structural health monitoring with machine learning integration',
-    authors: 'Rogers K. Langat, Weikun Deng, Emmanuel De Luycker, Arthur Cantarel, Micky Rakotondrabe',
-    venue: 'Mechatronics 106, 103297',
-    topic: 'In-situ sensing · Structural health monitoring',
-    links: [
-      { label: 'Publisher', href: 'https://doi.org/10.1016/j.mechatronics.2025.103297' },
-      { label: 'Full text', href: 'https://drive.google.com/uc?export=download&id=1jBoTiWSnwfM4fQdLhUBzCPcJ2bxOTmiF', download: true },
-    ],
-  },
-  {
-    id: 'j4',
-    kind: 'Journal',
-    year: 2025,
-    title: 'A Generic Physics-Informed Machine Learning Framework for Battery Remaining Useful Life Prediction Using Small Early-Stage Lifecycle Data',
-    authors: 'Weikun Deng, Hung Le, Christian Gogu, Khanh T. P. Nguyen, Kamal Medjaher, Jérôme Morio, Dazhong Wu',
-    venue: 'Applied Energy 384, 125314',
-    topic: 'Physics-informed learning · Battery RUL',
-    links: [
-      { label: 'Publisher', href: 'https://doi.org/10.1016/j.apenergy.2025.125314' },
-      { label: 'Full text', href: 'https://drive.google.com/uc?export=download&id=1PWbZrgvd4PgEuJhENpm72pMw30nVdsem', download: true },
-      { label: 'Code', href: 'https://github.com/pimlphm/PIML-benchmark-architecture' },
-    ],
-  },
-  {
-    id: 'j5',
-    kind: 'Journal',
-    year: 2024,
-    title: 'Enhancing Prognostics for Sparse Labeled Data Using Advanced Contrastive Self-Supervised Learning with Downstream Integration',
-    authors: 'Weikun Deng, Khanh T. P. Nguyen, Kamal Medjaher, Christian Gogu, Jérôme Morio',
-    venue: 'Engineering Applications of Artificial Intelligence 138, 109268',
-    topic: 'Contrastive self-supervision · Sparse labels',
-    links: [{ label: 'Publisher', href: 'https://doi.org/10.1016/j.engappai.2024.109268' }],
-  },
-  {
-    id: 'j3',
-    kind: 'Journal',
-    year: 2024,
-    title: 'Physics-informed machine learning model for inverse dynamics in robotic manipulators',
-    authors: 'Weikun Deng, Fabio Ardiani, Khanh T. P. Nguyen, Mourad Benoussaad, Kamal Medjaher',
-    venue: 'Applied Soft Computing 163, 111877',
-    topic: 'Inverse dynamics · Robotics',
-    links: [{ label: 'Publisher', href: 'https://doi.org/10.1016/j.asoc.2024.111877' }],
-  },
-  {
-    id: 'j2',
-    kind: 'Journal',
-    year: 2023,
-    title: 'Rotor dynamics informed deep learning for detection, identification, and localization of shaft crack and unbalance defects',
-    authors: 'Weikun Deng, Khanh T. P. Nguyen, Kamal Medjaher, Christian Gogu, Jérôme Morio',
-    venue: 'Advanced Engineering Informatics 58, 102128',
-    topic: 'Rotor dynamics · Fault diagnosis',
-    links: [
-      { label: 'Publisher', href: 'https://doi.org/10.1016/j.aei.2023.102128' },
-      { label: 'Code', href: 'https://github.com/pimlphm/rfemnn-rotor-diagnostics' },
-    ],
-  },
-  {
-    id: 'j1',
-    kind: 'Journal',
-    year: 2023,
-    title: 'Physics-informed machine learning in prognostics and health management: State of the art and challenges',
-    authors: 'Weikun Deng, Khanh T. P. Nguyen, Kamal Medjaher, Christian Gogu, Jérôme Morio',
-    venue: 'Applied Mathematical Modelling 124, 325–352',
-    topic: 'Review · Physics-informed machine learning',
-    links: [{ label: 'Publisher', href: 'https://doi.org/10.1016/j.apm.2023.07.011' }],
-  },
-  {
-    id: 'j10',
-    kind: 'Journal',
-    year: 2023,
-    title: 'Running Condition Identification of High-speed Shaft Based on Shaft-end-data Driven LSTM-CNN',
-    authors: 'Yi Cong, Jianjun Du, Jixiong Yin, Haibin Zhu, Weikun Deng, Baoliang Bai, Congyi Fu',
-    venue: 'Journal of Mechanical Engineering 59(1), 131–140',
-    topic: 'High-speed shafts · Condition identification',
-    links: [
-      { label: 'Article', href: 'https://qikan.cmes.org/jxgcxb/EN/10.3901/JME.2023.01.131' },
-      { label: 'Full text', href: 'https://qikan.cmes.org/jxgcxb/EN/PDF/10.3901/JME.2023.01.131', download: true },
-    ],
-  },
-  {
-    id: 'c7',
-    kind: 'Conference',
-    year: 2025,
-    title: 'Towards convexity-aware physics-informed machine learning: A framework for reliable prognostics',
-    authors: 'Weikun Deng, Khanh T. P. Nguyen, Kamal Medjaher',
-    venue: 'Technological Systems, Sustainability and Safety Conference (TS3), Paris',
-    topic: 'Convexity-aware learning · Prognostics',
-    links: [{ label: 'Open record', href: 'https://hal.science/hal-05384813' }],
-  },
-  {
-    id: 'c6',
-    kind: 'Conference',
-    year: 2025,
-    title: 'Interpretable Maintenance Impact Quantification Using JEPA-KAN with Self-Supervised Contrastive Learning: An Aircraft Case Study',
-    authors: 'Weikun Deng, Khanh T. P. Nguyen, Phuc Do, Kamal Medjaher',
-    venue: 'MIMAR 2025',
-    topic: 'Maintenance impact · Interpretable learning',
-    links: [
-      { label: 'Programme', href: 'https://easychair.org/smart-program/MIMAR2025/2025-07-08.html' },
-      { label: 'Author copy', href: 'https://drive.google.com/uc?export=download&id=1M9pUarQUPyLVTQImCNUBev-z8-gT1MbV', download: true },
-    ],
-  },
-  {
-    id: 'c5',
-    kind: 'Conference',
-    year: 2024,
-    title: 'A Novel PIML Architecture with Innovative Learning Paradigm Applied in Battery Prognostics',
-    authors: 'Weikun Deng, Hung Le, Dazhong Wu, Khanh T. P. Nguyen, Christian Gogu, Jérôme Morio, Kamal Medjaher',
-    venue: 'CoDIT 2024',
-    topic: 'Physics-informed learning · Batteries',
-    links: [
-      { label: 'Publisher', href: 'https://doi.org/10.1109/CoDIT62066.2024.10708278' },
-      { label: 'Code', href: 'https://github.com/pimlphm/PIML-benchmark-architecture' },
-    ],
-  },
-  {
-    id: 'c4',
-    kind: 'Conference',
-    year: 2023,
-    title: 'A Few-Shot Learning Framework for Rotor Unbalance and Shaft Crack Fault Diagnostic Based on Physics-Informed Neural Network',
-    authors: 'Weikun Deng, Khanh T. P. Nguyen, Christian Gogu, Jérôme Morio, Kamal Medjaher',
-    venue: 'Structural Health Monitoring 2023',
-    topic: 'Few-shot learning · Rotor faults',
-    links: [
-      { label: 'Proceedings', href: 'https://doi.org/10.12783/shm2023/36985' },
-      { label: 'Full text', href: 'https://dpi-proceedings.com/index.php/shm2023/article/download/36985/35560', download: true },
-    ],
-  },
-  {
-    id: 'c3',
-    kind: 'Conference',
-    year: 2023,
-    title: 'Bearings RUL prediction based on contrastive self-supervised learning',
-    authors: 'Weikun Deng, Khanh T. P. Nguyen, Kamal Medjaher, Christian Gogu, Jérôme Morio',
-    venue: 'IFAC-PapersOnLine, 11906–11911',
-    topic: 'Self-supervision · Bearing RUL',
-    links: [
-      { label: 'Publisher', href: 'https://doi.org/10.1016/j.ifacol.2023.10.604' },
-      { label: 'Full text', href: 'https://drive.google.com/uc?export=download&id=1bPJJV6abv1gsP8BxUMYZc1XfPLl3H-8j', download: true },
-    ],
-  },
-  {
-    id: 'c2',
-    kind: 'Conference',
-    year: 2022,
-    title: 'Physics Informed Self Supervised Learning for Fault Diagnostics and Prognostics in the Context of Sparse and Noisy Data',
-    authors: 'Weikun Deng, Khanh T. P. Nguyen, Kamal Medjaher',
-    venue: 'PHM Society European Conference 7(1), 574–576',
-    topic: 'Self-supervision · Sparse and noisy data',
-    links: [
-      { label: 'Proceedings', href: 'https://doi.org/10.36001/phme.2022.v7i1.3298' },
-      { label: 'Full text', href: 'https://drive.google.com/uc?export=download&id=1OKtikNifO667AD0fQggxjhSUVrhzpn1n', download: true },
-    ],
-  },
-  {
-    id: 'c1',
-    kind: 'Conference',
-    year: 2022,
-    title: 'Physics-informed lightweight temporal convolution networks for fault prognostics associated to bearing stiffness degradation',
-    authors: 'Weikun Deng, Khanh T. P. Nguyen, Christian Gogu, Jérôme Morio, Kamal Medjaher',
-    venue: 'PHM Society European Conference 7(1), 118–125',
-    topic: 'Temporal convolution · Bearing degradation',
-    links: [
-      { label: 'Proceedings', href: 'https://doi.org/10.36001/phme.2022.v7i1.3365' },
-      { label: 'Full text', href: 'https://drive.google.com/uc?export=download&id=1QFrCa-tmHDd4mNYcOwKXwXYJ-jrBY1hS', download: true },
-      { label: 'Code', href: 'https://github.com/pimlphm/Physics-informed-machine-learning-based-on-TCN' },
-    ],
-  },
-  {
-    id: 'thesis',
-    kind: 'Thesis',
-    year: 2024,
-    title: 'Improving diagnostics and prognostics in sparse data and scarce knowledge conditions by physics-informed and self-supervised machine learning',
-    authors: 'Weikun Deng',
-    venue: 'Doctoral thesis · Toulouse INP, Université de Toulouse',
-    topic: 'Physics-informed learning · Self-supervision · PHM',
-    links: [{ label: 'Thesis & PDF', href: 'https://theses.hal.science/tel-04845497v1' }],
-  },
-];
-
 const codeProjects = [
   {
     tag: 'Rotor diagnostics',
@@ -598,55 +364,6 @@ const chineseResearchThreads: Record<string, { title: string; detail: string }> 
     title: '少标签条件下的学习',
     detail: '针对稀疏、含噪及分布变化工况研究自监督学习与迁移学习。',
   },
-};
-
-const chineseResearchFigures: Record<string, { alt: string; kicker: string; title: string; detail: string }> = {
-  '01': {
-    alt: '转子模型与物理信息神经网络架构图',
-    kicker: '转子系统 · 2023',
-    title: '将力学机理转化为模型结构',
-    detail: '面向轴裂纹与不平衡故障检测、识别和定位的转子动力学信息深度网络。',
-  },
-  '02': {
-    alt: '轴承寿命预测的对比自监督学习流程',
-    kicker: '轴承 · 2024',
-    title: '在少标签条件下学习有效信号',
-    detail: '将预任务学习与下游寿命预测相连接的对比自监督流程。',
-  },
-  '03': {
-    alt: '机器人机械臂物理信息逆动力学模型',
-    kicker: '机器人 · 2024',
-    title: '以物理机理引导逆动力学',
-    detail: '用于机器人机械臂逆动力学建模的结构化学习方法。',
-  },
-  '04': {
-    alt: '噪声增强条件下的跨场景寿命预测结果',
-    kicker: '跨场景 PHM · 2025',
-    title: '适应多种运行场景',
-    detail: '在变化的寿命预测场景中评估端到端门控状态空间架构。',
-  },
-};
-
-const chinesePublicationTopics: Record<string, string> = {
-  j11: '维护作用 · 可解释算子',
-  j8: '健康指标 · 多部件系统',
-  j7: '物理信息迁移学习 · 电池',
-  j9: '状态空间模型 · 跨场景寿命预测',
-  j6: '原位传感 · 结构健康监测',
-  j4: '物理信息学习 · 电池剩余寿命',
-  j5: '对比自监督学习 · 少标签',
-  j3: '逆动力学 · 机器人',
-  j2: '转子动力学 · 故障诊断',
-  j1: '综述 · 物理信息机器学习',
-  j10: '高速轴系 · 工况识别',
-  c7: '凸性感知学习 · 可靠性预测',
-  c6: '维护影响 · 可解释学习',
-  c5: '物理信息学习 · 电池',
-  c4: '少样本学习 · 转子故障',
-  c3: '自监督学习 · 轴承剩余寿命',
-  c2: '自监督学习 · 稀疏与噪声数据',
-  c1: '时间卷积 · 轴承退化',
-  thesis: '物理信息学习 · 自监督学习 · 故障预测与健康管理',
 };
 
 const chineseCodeProjects: Record<string, { tag: string; description: string }> = {
@@ -745,6 +462,11 @@ function ExternalLink({ href, children, className = '' }: { href: string; childr
   );
 }
 
+function publicationLinkLabel(link: PublicationLink, language: Language) {
+  if (typeof link.label !== 'string') return link.label[language];
+  return publicationLinkLabels[language][link.label] ?? link.label;
+}
+
 export default function Home({ language }: { language: Language }) {
   const [filter, setFilter] = useState<'All' | PublicationKind>('All');
   const [query, setQuery] = useState('');
@@ -763,10 +485,21 @@ export default function Home({ language }: { language: Language }) {
     const term = query.trim().toLowerCase();
     return publications.filter((publication) => {
       const matchesKind = filter === 'All' || publication.kind === filter;
-      const haystack = `${publication.title} ${publication.authors} ${publication.venue} ${publication.topic} ${chinesePublicationTopics[publication.id] ?? ''}`.toLowerCase();
+      const haystack = `${publication.title} ${publication.authors} ${publication.venue} ${publication.topic.en} ${publication.topic.zh}`.toLowerCase();
       return matchesKind && (!term || haystack.includes(term));
     });
   }, [filter, query]);
+
+  const publicationCounts = useMemo(() => ({
+    Journal: publications.filter((publication) => publication.kind === 'Journal').length,
+    Conference: publications.filter((publication) => publication.kind === 'Conference').length,
+    Thesis: publications.filter((publication) => publication.kind === 'Thesis').length,
+  }), []);
+  const publicationSummary = language === 'zh'
+    ? `${publicationCounts.Journal} 篇期刊论文 · ${publicationCounts.Conference} 篇会议论文 · ${publicationCounts.Thesis} 篇博士论文`
+    : `${publicationCounts.Journal} journal articles · ${publicationCounts.Conference} conference contributions · ${publicationCounts.Thesis} doctoral thesis`;
+  const projectYears = useMemo(() => [...new Set(researchProjects.map((project) => project.year))].sort((a, b) => b - a), []);
+  const publicationById = useMemo(() => new Map(publications.map((publication) => [publication.id, publication])), []);
 
   return (
     <main data-language={language} lang={language === 'zh' ? 'zh-CN' : 'en'}>
@@ -776,7 +509,7 @@ export default function Home({ language }: { language: Language }) {
           <span>Weikun Deng</span>
         </a>
         <nav className="nav-links" aria-label={t.navigationAria}>
-          <a href="#work">{t.navResearch}</a>
+          <a href="#projects">{t.navProjects}</a>
           <a href="#publications">{t.navPublications}</a>
           <a href="#code">{t.navCode}</a>
           <a href="#life">{t.navLife}</a>
@@ -807,7 +540,7 @@ export default function Home({ language }: { language: Language }) {
             </p>
           </div>
           <div className="hero-actions">
-            <a className="button button-primary" href="#work">{t.exploreWork} <span>↓</span></a>
+            <a className="button button-primary" href="#projects">{t.exploreWork} <span>↓</span></a>
             <a className="button button-ghost" href="#publications">{t.browsePublications}</a>
           </div>
           <div className="profile-links" aria-label={t.researchProfilesAria}>
@@ -821,7 +554,7 @@ export default function Home({ language }: { language: Language }) {
           <div className="orbit orbit-one" aria-hidden="true" />
           <div className="orbit orbit-two" aria-hidden="true" />
           <div className="portrait-frame"><img src="/images/weikun-deng.jpg" alt={language === 'zh' ? '邓炜坤' : 'Weikun Deng'} /></div>
-          <div className="signal-card signal-card-top"><span>{t.publishedRecord}</span><strong>{t.journalArticles}</strong></div>
+          <div className="signal-card signal-card-top"><span>{t.publishedRecord}</span><strong>{publicationCounts.Journal} {language === 'zh' ? '篇期刊论文' : 'journal articles'}</strong></div>
           <div className="signal-card signal-card-bottom"><span>{t.inventiveWork}</span><strong>{t.grantedPatents}</strong></div>
         </div>
       </section>
@@ -845,36 +578,59 @@ export default function Home({ language }: { language: Language }) {
         </div>
       </section>
 
-      <section className="evidence-section">
+      <section className="evidence-section project-section" id="projects">
         <div className="section-heading split-heading">
           <div><p className="eyebrow"><span /> {t.evidenceEyebrow}</p><h2>{t.evidenceHeading}</h2></div>
           <p>{t.evidenceIntro}</p>
         </div>
-        <div className="motion-grid" aria-label={t.motionAria}>
-          <a className="motion-card" href="https://doi.org/10.1016/j.aei.2023.102128" target="_blank" rel="noreferrer">
-            <div className="motion-visual"><img src="/research/twin-rotor.gif" alt={t.motionOneAlt} loading="lazy" /></div>
-            <div><span>{t.motionOneLabel}</span><h3>{t.motionOneTitle}</h3><p>{t.motionOneDetail}</p></div>
-          </a>
-          <a className="motion-card" href="https://theses.hal.science/tel-04845497v1" target="_blank" rel="noreferrer">
-            <div className="motion-visual"><img src="/research/aero-engine-cutaway.gif" alt={t.motionTwoAlt} loading="lazy" /></div>
-            <div><span>{t.motionTwoLabel}</span><h3>{t.motionTwoTitle}</h3><p>{t.motionTwoDetail}</p></div>
-          </a>
-        </div>
-        <div className="evidence-grid">
-          {researchFigures.map((figure) => {
-            const translated = language === 'zh' ? chineseResearchFigures[figure.number] : undefined;
+        <nav className="project-year-index" aria-label={t.projectIndexAria}>
+          {projectYears.map((year) => <a key={year} href={`#projects-${year}`}>{year}</a>)}
+        </nav>
+        <div className="project-archive" aria-label={t.projectArchiveAria}>
+          {projectYears.map((year) => {
+            const yearProjects = researchProjects.filter((project) => project.year === year);
             return (
-              <article className="evidence-card" key={figure.number}>
-                <a className="evidence-image" href={figure.href} target="_blank" rel="noreferrer">
-                  <img src={figure.image} alt={translated?.alt ?? figure.alt} loading="lazy" />
-                  <span className="scan-line" aria-hidden="true" />
-                  <span className="figure-number">{figure.number}</span>
-                </a>
-                <div className="evidence-copy">
-                  <p>{translated?.kicker ?? figure.kicker}</p><h3>{translated?.title ?? figure.title}</h3><span>{translated?.detail ?? figure.detail}</span>
-                  <ExternalLink href={figure.href}>{t.openArticle}</ExternalLink>
+              <section className="project-year" id={`projects-${year}`} key={year}>
+                <header className="project-year-marker">
+                  <strong>{year}</strong>
+                  <span>{yearProjects.length} {yearProjects.length === 1 ? t.projectSingular : t.projectPlural}</span>
+                </header>
+                <div className="project-list">
+                  {yearProjects.map((project) => {
+                    const linkedOutputCount = project.publicationIds.filter((id) => publicationById.has(id)).length;
+                    const projectCitations = project.publicationIds.reduce((sum, id) => sum + (scholarImpactByPublication[id]?.citations ?? 0), 0);
+                    return (
+                      <article className="project-card" key={project.id}>
+                        <div className={`project-media${project.image ? ' has-image' : ''}`}>
+                          {project.image ? (
+                            <img src={project.image} alt={project.imageAlt?.[language] ?? project.title[language]} loading="lazy" />
+                          ) : (
+                            <div className="project-signal" aria-hidden="true">
+                              <span /><span /><span /><span /><strong>{project.displayYear ?? project.year}</strong>
+                            </div>
+                          )}
+                          <span className="project-year-badge">{project.displayYear ?? project.year}</span>
+                        </div>
+                        <div className="project-copy">
+                          <p className="project-kind">{project.kind[language]}</p>
+                          <h3>{project.title[language]}</h3>
+                          <p className="project-summary">{project.summary[language]}</p>
+                          <p className="project-tags">{project.tags[language]}</p>
+                          <div className="project-impact">
+                            <span>{linkedOutputCount > 0 ? `${linkedOutputCount} ${linkedOutputCount === 1 ? t.linkedOutput : t.linkedOutputs}` : `1 ${t.technicalCase}`}</span>
+                            {projectCitations > 0 && <span>{projectCitations} {projectCitations === 1 ? t.citation : t.citationsLower}</span>}
+                          </div>
+                          {project.links.length > 0 && (
+                            <div className="project-links">
+                              {project.links.map((link) => <ExternalLink href={link.href} key={`${project.id}-${link.href}`}>{link.label[language]}</ExternalLink>)}
+                            </div>
+                          )}
+                        </div>
+                      </article>
+                    );
+                  })}
                 </div>
-              </article>
+              </section>
             );
           })}
         </div>
@@ -883,7 +639,7 @@ export default function Home({ language }: { language: Language }) {
       <section className="publications-section" id="publications">
         <div className="section-heading publications-heading">
           <div><p className="eyebrow"><span /> {t.publicationsEyebrow}</p><h2>{t.publicationsHeading}</h2></div>
-          <p>{t.publicationsSummary}</p>
+          <p>{publicationSummary}</p>
         </div>
 
         <div className="scholar-impact" aria-label={`${t.scholarAria}${language === 'zh' ? '，' : ', '}${formatScholarDate(scholarProfile.synced, language)}`}>
@@ -918,7 +674,7 @@ export default function Home({ language }: { language: Language }) {
             <article className="publication-row" key={publication.id}>
               <div className="publication-meta"><span>{publication.year}</span><span>{publicationKindLabels[language][publication.kind]}</span></div>
               <div className="publication-main">
-                <p className="publication-topic">{language === 'zh' ? chinesePublicationTopics[publication.id] ?? publication.topic : publication.topic}</p>
+                <p className="publication-topic">{publication.topic[language]}</p>
                 <h3>{publication.title}</h3>
                 <p className="authors"><NameHighlighted authors={publication.authors} /></p>
                 <p className="venue">{publication.venue}</p>
@@ -931,7 +687,7 @@ export default function Home({ language }: { language: Language }) {
                   </a>
                 )}
                 {publication.links.map((link) => (
-                  <a href={link.href} key={`${publication.id}-${link.label}`} target="_blank" rel="noreferrer" download={link.download || undefined}>{publicationLinkLabels[language][link.label] ?? link.label} <span aria-hidden="true">↗</span></a>
+                  <a href={link.href} key={`${publication.id}-${link.href}`} target="_blank" rel="noreferrer" download={link.download || undefined}>{publicationLinkLabel(link, language)} <span aria-hidden="true">↗</span></a>
                 ))}
               </div>
             </article>
@@ -1024,6 +780,7 @@ export default function Home({ language }: { language: Language }) {
       <footer className="site-footer">
         <div><p className="eyebrow"><span /> {t.connect}</p><h2>Weikun DENG <em>邓炜坤</em></h2><p>{t.footerTagline}</p></div>
         <div className="footer-links">
+          <a href="mailto:wekun.deng@cityu-dg.edu.cn">{language === 'zh' ? '邮箱' : 'Email'} · wekun.deng@cityu-dg.edu.cn <span aria-hidden="true">↗</span></a>
           <ExternalLink href="https://github.com/pimlphm">GitHub</ExternalLink>
           <ExternalLink href="https://scholar.google.com/citations?user=mTYJRFwAAAAJ&hl=en">Scholar</ExternalLink>
           <ExternalLink href="https://www.researchgate.net/profile/Weikun-Deng">ResearchGate</ExternalLink>

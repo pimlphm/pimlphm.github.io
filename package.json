@@ -6,8 +6,11 @@
     "node": ">=22.13.0"
   },
   "scripts": {
+    "predev": "npm run content:build",
     "dev": "vinext dev",
+    "prebuild": "npm run content:build",
     "build": "vinext build",
+    "prebuild:github": "npm run content:build",
     "build:github": "vite build --config vite.github.config.ts",
     "preview:github": "vite preview --config vite.github.config.ts",
     "sync:scholar": "node scripts/sync-scholar.mjs",
@@ -15,6 +18,9 @@
     "check:scholar": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/sync-scholar-local.ps1 -Check",
     "test:scholar-sync": "node --test scripts/sync-scholar.test.mjs",
     "test:bilingual": "node --test scripts/bilingual.test.mjs",
+    "test:content": "node --test scripts/compile-content.test.mjs",
+    "content:build": "node scripts/compile-content.mjs",
+    "content:check": "node scripts/compile-content.mjs --check",
     "start": "vinext start",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next --ignore-pattern github-dist"
   },

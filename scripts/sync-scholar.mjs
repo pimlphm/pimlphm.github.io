@@ -4,6 +4,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const DATA_PATH = resolve(SCRIPT_DIR, '../data/scholar.json');
+const PUBLICATIONS_PATH = resolve(SCRIPT_DIR, '../data/publications.generated.json');
 const SCHOLAR_ORIGIN = 'https://scholar.google.com';
 const MAX_PROFILE_ROWS = 99;
 const BOT_MARKERS = [
@@ -164,8 +165,14 @@ function syncLabel(now) {
   return `${day} ${months[month - 1]} ${year}`;
 }
 
-export function buildSnapshot(current, parsed, now = new Date()) {
+export function buildSnapshot(current, parsed, now = new Date(), publicationCatalog = []) {
   const approvedEntries = Object.entries(current.works);
+  const approvedPublicationIds = new Set(approvedEntries.map(([publicationId]) => publicationId));
+  for (const publication of publicationCatalog) {
+    if (!publication.scholarId || approvedPublicationIds.has(publication.id)) continue;
+    approvedEntries.push([publication.id, { scholarId: publication.scholarId }]);
+    approvedPublicationIds.add(publication.id);
+  }
   const approvedIds = new Set(approvedEntries.map(([, work]) => work.scholarId));
   const ignoredIds = new Set(current.ignoredScholarIds ?? []);
 
@@ -242,12 +249,15 @@ async function readStandardInput() {
 
 async function main() {
   const checkOnly = process.argv.includes('--check');
-  const current = JSON.parse(await readFile(DATA_PATH, 'utf8'));
+  const [current, publicationCatalog] = await Promise.all([
+    readFile(DATA_PATH, 'utf8').then(JSON.parse),
+    readFile(PUBLICATIONS_PATH, 'utf8').then(JSON.parse),
+  ]);
   const html = process.argv.includes('--stdin')
     ? await readStandardInput()
     : await fetchScholarProfile(current.profile);
   const parsed = parseScholarProfile(html, current.profile);
-  const next = buildSnapshot(current, parsed);
+  const next = buildSnapshot(current, parsed, new Date(), publicationCatalog);
 
   if (!checkOnly) {
     const temporaryPath = `${DATA_PATH}.${process.pid}.tmp`;

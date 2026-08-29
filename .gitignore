@@ -34,6 +34,7 @@ yarn-error.log*
 next-env.d.ts
 /dist/
 /github-dist/
+/public/uploads-generated/
 /.wrangler/
 /outputs/
 /work/
