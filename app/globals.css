@@ -12,6 +12,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+[id] { scroll-margin-top: 96px; }
 body {
   margin: 0;
   overflow-x: hidden;
@@ -48,7 +49,21 @@ img { display: block; max-width: 100%; }
 .nav-links a::after { content: ''; position: absolute; right: 0; bottom: -7px; left: 0; height: 2px; background: var(--orange); transform: scaleX(0); transform-origin: right; transition: transform .25s ease; }
 .nav-links a:hover { color: var(--ink); }
 .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+.header-actions { display: flex; align-items: center; justify-self: end; gap: clamp(12px, 1.6vw, 22px); }
+.language-switch { display: inline-flex; align-items: center; gap: 6px; padding: 5px 8px; color: var(--muted); background: rgba(255,255,255,.52); border: 1px solid var(--line); border-radius: 999px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 10px; font-weight: 800; letter-spacing: .04em; }
+.language-switch a { display: grid; place-items: center; min-width: 36px; min-height: 36px; padding: 0 7px; color: inherit; border-radius: 999px; text-decoration: none; }
+.language-switch a:hover { color: var(--deep); }
+.language-switch a.active { color: var(--paper); background: var(--deep); }
 .nav-cta { justify-self: end; padding-bottom: 3px; border-bottom: 1px solid currentColor; text-decoration: none; font-size: 13px; font-weight: 750; }
+
+main[data-language='zh'] { font-family: "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", Inter, sans-serif; }
+main[data-language='zh'] .hero h1,
+main[data-language='zh'] .strip-heading h2,
+main[data-language='zh'] .section-heading h2,
+main[data-language='zh'] .recognition-column > h2,
+main[data-language='zh'] .site-footer h2 { font-family: "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", SimSun, serif; }
+main[data-language='zh'] .hero h1 { letter-spacing: -.045em; line-height: 1; }
+main[data-language='zh'] .hero h1 em { font-style: normal; }
 
 .hero {
   display: grid;

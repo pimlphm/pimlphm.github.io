@@ -7,9 +7,16 @@ export const metadata: Metadata = {
   description:
     'Academic homepage of Weikun Deng — physics-informed machine learning, diagnostics, prognostics and intelligent maintenance.',
   authors: [{ name: 'Weikun Deng' }],
-  alternates: { canonical: '/' },
+  alternates: {
+    canonical: '/',
+    languages: {
+      en: '/',
+      'zh-CN': '/zh/',
+    },
+  },
   openGraph: {
     type: 'website',
+    locale: 'en_US',
     url: '/',
     title: 'Weikun Deng | Engineering Intelligence',
     description: 'Physics-informed machine learning for diagnostics, prognostics and intelligent maintenance.',
@@ -25,7 +32,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>{children}</body>
     </html>
   );
