@@ -85,6 +85,19 @@ test('the homepage uses the supplied circular portrait and CityU-inspired warm p
   assert.match(styles, /\.portrait-frame img \{[^}]*object-position: 50% 60%/);
 });
 
+test('the published identity is a direct academic homepage without product-style branding', async () => {
+  const [layout, githubHtml, sharedHome] = await Promise.all([
+    read('app/layout.tsx'),
+    read('github/index.html'),
+    read('app/home.tsx'),
+  ]);
+  const publishedIdentity = `${layout}\n${githubHtml}\n${sharedHome}`;
+
+  assert.match(publishedIdentity, /Weikun Deng.*Academic Homepage/);
+  assert.match(publishedIdentity, /og\.png/);
+  assert.doesNotMatch(publishedIdentity, /Engineering Intelligence|Engineering intelligence|grounded in physics|Engineering AI|Built as a lightweight|chatgpt\.site/i);
+});
+
 test('year archive and publication catalogue remain complete and deduplicated', async () => {
   const [publicationsText, projectsText, sharedHome] = await Promise.all([
     read('data/publications.generated.json'),

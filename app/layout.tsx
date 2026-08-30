@@ -3,9 +3,9 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://pimlphm.github.io'),
-  title: 'Weikun Deng 邓炜坤 | Engineering Intelligence',
+  title: 'Weikun Deng 邓炜坤 | Academic Homepage',
   description:
-    'Academic homepage of Weikun Deng — physics-informed machine learning, diagnostics, prognostics and intelligent maintenance.',
+    'Academic homepage of Weikun Deng, Assistant Professor in Intelligent Manufacturing and Systems Engineering.',
   authors: [{ name: 'Weikun Deng' }],
   alternates: {
     canonical: '/',
@@ -14,15 +14,15 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    title: 'Weikun Deng | Engineering Intelligence',
-    description: 'Physics-informed machine learning for diagnostics, prognostics and intelligent maintenance.',
-    images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'Weikun Deng — Engineering intelligence, grounded in physics.' }],
+    title: 'Weikun Deng | Academic Homepage',
+    description: 'Research in intelligent manufacturing, condition monitoring and engineering systems.',
+    images: [{ url: '/og.png', width: 1792, height: 1024, alt: 'Weikun Deng — Academic Homepage.' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Weikun Deng | Engineering Intelligence',
-    description: 'Physics-informed machine learning for diagnostics, prognostics and intelligent maintenance.',
-    images: ['/og.jpg'],
+    title: 'Weikun Deng | Academic Homepage',
+    description: 'Research in intelligent manufacturing, condition monitoring and engineering systems.',
+    images: ['/og.png'],
   },
 };
 
