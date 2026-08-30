@@ -307,7 +307,7 @@ export default function Home() {
         <div className="portrait-stage" aria-label={t.portraitAria}>
           <div className="orbit orbit-one" aria-hidden="true" />
           <div className="orbit orbit-two" aria-hidden="true" />
-          <div className="portrait-frame"><img src="/images/weikun-deng.jpg" alt="Weikun Deng" /></div>
+          <div className="portrait-frame"><img src="/images/weikun-deng-lanterns.png" alt="Weikun Deng" /></div>
           <div className="signal-card signal-card-top"><span>{t.publishedRecord}</span><strong>{publicationCounts.Journal} journal articles</strong></div>
           <div className="signal-card signal-card-bottom"><span>{t.inventiveWork}</span><strong>{t.grantedPatents}</strong></div>
         </div>

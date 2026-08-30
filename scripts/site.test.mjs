@@ -71,6 +71,20 @@ test('the source-code section keeps the repositories without the removed promoti
   assert.doesNotMatch(styles, /\.code-facts|\.code-heading h2|\.code-heading > p:not\(\.eyebrow\)/);
 });
 
+test('the homepage uses the supplied circular portrait and CityU-inspired warm palette', async () => {
+  const [sharedHome, styles] = await Promise.all([
+    read('app/home.tsx'),
+    read('app/globals.css'),
+  ]);
+
+  assert.match(sharedHome, /\/images\/weikun-deng-lanterns\.png/);
+  assert.doesNotMatch(sharedHome, /\/images\/weikun-deng\.jpg/);
+  assert.match(styles, /--deep: #7a1238/);
+  assert.match(styles, /--orange: #e83e5f/);
+  assert.match(styles, /\.portrait-frame \{[^}]*border-radius: 50%/);
+  assert.match(styles, /\.portrait-frame img \{[^}]*object-position: 50% 60%/);
+});
+
 test('year archive and publication catalogue remain complete and deduplicated', async () => {
   const [publicationsText, projectsText, sharedHome] = await Promise.all([
     read('data/publications.generated.json'),
