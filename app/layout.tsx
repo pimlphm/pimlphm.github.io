@@ -16,13 +16,13 @@ export const metadata: Metadata = {
     url: '/',
     title: 'Weikun Deng | Academic Homepage',
     description: 'Research in intelligent manufacturing, condition monitoring and engineering systems.',
-    images: [{ url: '/og.png', width: 1792, height: 1024, alt: 'Weikun Deng — Academic Homepage.' }],
+    images: [{ url: '/og.jpg', width: 1200, height: 686, alt: 'Weikun Deng — Academic Homepage.' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Weikun Deng | Academic Homepage',
     description: 'Research in intelligent manufacturing, condition monitoring and engineering systems.',
-    images: ['/og.png'],
+    images: ['/og.jpg'],
   },
 };
 

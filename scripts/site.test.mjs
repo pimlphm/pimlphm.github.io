@@ -94,7 +94,7 @@ test('the published identity is a direct academic homepage without product-style
   const publishedIdentity = `${layout}\n${githubHtml}\n${sharedHome}`;
 
   assert.match(publishedIdentity, /Weikun Deng.*Academic Homepage/);
-  assert.match(publishedIdentity, /og\.png/);
+  assert.match(publishedIdentity, /og\.jpg/);
   assert.doesNotMatch(publishedIdentity, /Engineering Intelligence|Engineering intelligence|grounded in physics|Engineering AI|Built as a lightweight|chatgpt\.site/i);
 });
 
