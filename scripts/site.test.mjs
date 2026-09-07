@@ -42,8 +42,10 @@ test('GitHub owns the weekly data refresh and redeployment mechanism', async () 
   assert.match(workflow, /contents: write/);
   assert.match(workflow, /workflow_dispatch'[\s\S]*'windows-latest'[\s\S]*'ubuntu-latest'/);
   assert.match(workflow, /Refresh approved Google Scholar data[\s\S]*npm run sync:scholar:local/);
+  assert.match(workflow, /id: scholar-sync[\s\S]*continue-on-error: true/);
   assert.match(workflow, /Build static site[\s\S]*Deploy[\s\S]*Persist automatically refreshed data/);
   assert.match(workflow, /Persist automatically refreshed data[\s\S]*git push origin HEAD:main/);
+  assert.match(workflow, /Report Scholar refresh status[\s\S]*last verified snapshot/);
 });
 
 test('the removed motion showcase and its GIFs are absent from the interface', async () => {

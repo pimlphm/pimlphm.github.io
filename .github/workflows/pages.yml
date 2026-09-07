@@ -36,7 +36,11 @@ jobs:
       - name: Build publication and project catalogues
         run: npm run content:build
       - name: Refresh approved Google Scholar data
+        id: scholar-sync
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        # Google occasionally blocks shared GitHub runner addresses.  Do not let
+        # that temporary upstream block prevent the scheduled Pages redeploy.
+        continue-on-error: true
         run: npm run sync:scholar:local
       - name: Test publication uploads
         run: npm run test:content
@@ -75,3 +79,14 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -m 'chore: refresh public site data [skip ci]'
           git push origin HEAD:main
+      - name: Report Scholar refresh status
+        if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        shell: bash
+        run: |
+          if [ "${{ steps.scholar-sync.outcome }}" = 'success' ]; then
+            echo '### Google Scholar refresh' >> "$GITHUB_STEP_SUMMARY"
+            echo 'The profile was verified and the current approved snapshot was used for this deployment.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo '### Google Scholar refresh deferred' >> "$GITHUB_STEP_SUMMARY"
+            echo 'Google Scholar did not permit this hosted request. GitHub Pages was redeployed with the last verified snapshot; no unverified metrics were published.' >> "$GITHUB_STEP_SUMMARY"
+          fi
