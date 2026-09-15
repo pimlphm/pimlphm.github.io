@@ -3,9 +3,10 @@
 /* eslint-disable @next/next/no-img-element -- Shared with the static GitHub Pages build. */
 
 import { useMemo, useState } from 'react';
-import scholarData from '../data/scholar.json';
 import publicationData from '../data/publications.generated.json';
 import projectData from '../data/projects.generated.json';
+import Pyrenees from './pyrenees';
+import { useScholar } from './use-scholar';
 
 type PublicationKind = 'Journal' | 'Conference' | 'Thesis';
 type LocalizedText = { en: string; zh: string };
@@ -41,13 +42,6 @@ type ResearchProject = {
   links: Array<{ label: LocalizedText; href: string }>;
 };
 
-type ScholarWorkImpact = {
-  citations: number;
-  href: string;
-};
-
-const scholarProfile = scholarData.profile;
-const scholarImpactByPublication: Record<string, ScholarWorkImpact> = scholarData.works;
 const publications = publicationData as Publication[];
 const researchProjects = projectData as ResearchProject[];
 
@@ -93,7 +87,7 @@ const uiCopy = {
     publicationsSummary: '11 journal articles · 7 conference contributions · doctoral thesis',
     scholarAria: 'Google Scholar impact snapshot',
     impactSnapshot: 'Impact snapshot',
-    synced: 'Synced',
+    synced: 'Last verified',
     distinctOutputs: 'distinct published outputs',
     citations: 'Citations',
     hIndex: 'h-index',
@@ -240,6 +234,9 @@ function publicationLinkLabel(link: PublicationLink) {
 }
 
 export default function Home() {
+  const scholar = useScholar();
+  const scholarProfile = scholar.profile;
+  const scholarImpactByPublication = scholar.works;
   const [filter, setFilter] = useState<'All' | PublicationKind>('All');
   const [query, setQuery] = useState('');
   const t = uiCopy;
@@ -270,6 +267,7 @@ export default function Home() {
           <span>Weikun Deng</span>
         </a>
         <nav className="nav-links" aria-label={t.navigationAria}>
+          <a href="#pyrenees">PYRENEES Lab</a>
           <a href="#projects">{t.navProjects}</a>
           <a href="#publications">{t.navPublications}</a>
           <a href="#code">{t.navCode}</a>
@@ -294,6 +292,7 @@ export default function Home() {
             </p>
           </div>
           <div className="hero-actions">
+            <a className="button button-ghost" href="#pyrenees">PYRENEES Laboratory</a>
             <a className="button button-primary" href="#projects">{t.exploreWork} <span>↓</span></a>
             <a className="button button-ghost" href="#publications">{t.browsePublications}</a>
           </div>
@@ -328,6 +327,8 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <Pyrenees />
 
       <section className="evidence-section project-section" id="projects">
         <div className="section-heading split-heading">
@@ -403,6 +404,12 @@ export default function Home() {
           <div className="scholar-metric"><strong>{scholarProfile.hIndex}</strong><span>{t.hIndex}</span></div>
           <div className="scholar-metric"><strong>{scholarProfile.i10Index}</strong><span>{t.i10Index}</span></div>
         </div>
+
+        <p className="scholar-update-note">
+          Updated weekly on Mondays (UTC+8).{' '}
+          {scholar.refresh?.outcome === 'unavailable' && <span>The latest check was unavailable; the values above are from {scholarProfile.synced}. </span>}
+          <ExternalLink href={scholarProfile.href}>View the current Google Scholar profile</ExternalLink>
+        </p>
 
         <div className="publication-tools">
           <div className="filter-group" aria-label={t.filterAria}>

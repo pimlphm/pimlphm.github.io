@@ -35,6 +35,7 @@ next-env.d.ts
 /dist/
 /github-dist/
 /public/uploads-generated/
+/public/data/scholar.json
 /.wrangler/
 /outputs/
 /work/

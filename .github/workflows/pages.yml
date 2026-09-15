@@ -5,6 +5,8 @@ on:
     branches: [main]
   schedule:
     - cron: '17 2 * * 1'
+    # Retry a missed weekly verification; skip the request if Monday succeeded.
+    - cron: '47 6 * * 2,3'
   workflow_dispatch:
 
 permissions:
@@ -41,7 +43,7 @@ jobs:
         # Google occasionally blocks shared GitHub runner addresses.  Do not let
         # that temporary upstream block prevent the scheduled Pages redeploy.
         continue-on-error: true
-        run: npm run sync:scholar:local
+        run: npm run refresh:scholar
       - name: Test publication uploads
         run: npm run test:content
       - name: Test Scholar parser
@@ -72,7 +74,7 @@ jobs:
           fi
           git add data/scholar.json data/publications.generated.json data/projects.generated.json
           if git diff --cached --quiet; then
-            echo 'Scholar and publication data are already current.'
+            echo 'No data changes to persist; see the Scholar verification summary.'
             exit 0
           fi
           git config user.name 'pimlphm-site-bot'
@@ -81,12 +83,4 @@ jobs:
           git push origin HEAD:main
       - name: Report Scholar refresh status
         if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
-        shell: bash
-        run: |
-          if [ "${{ steps.scholar-sync.outcome }}" = 'success' ]; then
-            echo '### Google Scholar refresh' >> "$GITHUB_STEP_SUMMARY"
-            echo 'The profile was verified and the current approved snapshot was used for this deployment.' >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo '### Google Scholar refresh deferred' >> "$GITHUB_STEP_SUMMARY"
-            echo 'Google Scholar did not permit this hosted request. GitHub Pages was redeployed with the last verified snapshot; no unverified metrics were published.' >> "$GITHUB_STEP_SUMMARY"
-          fi
+        run: node scripts/refresh-scholar.mjs --report

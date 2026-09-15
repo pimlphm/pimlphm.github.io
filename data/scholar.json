@@ -9,6 +9,10 @@
     "i10Index": 7,
     "distinctOutputs": 19
   },
+  "refresh": {
+    "attemptedAt": "2026-09-15T04:51:33.000Z",
+    "outcome": "unavailable"
+  },
   "ignoredScholarIds": [
     "9vf0nzSNQJEC",
     "t6usbXjVLHcC"

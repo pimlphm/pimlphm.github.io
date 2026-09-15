@@ -5,15 +5,16 @@ import test from 'node:test';
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), 'utf8');
 
 test('the English root renders the shared data-driven homepage', async () => {
-  const [page, sharedHome, githubMain] = await Promise.all([
+  const [page, sharedHome, githubMain, scholarHook] = await Promise.all([
     read('app/page.tsx'),
     read('app/home.tsx'),
     read('github/main.tsx'),
+    read('app/use-scholar.ts'),
   ]);
 
   assert.match(page, /<Home \/>/);
   assert.match(githubMain, /<Home \/>/);
-  assert.match(sharedHome, /scholarData from '\.\.\/data\/scholar\.json'/);
+  assert.match(scholarHook, /scholarData from '\.\.\/data\/scholar\.json'/);
   assert.match(sharedHome, /publicationData from '\.\.\/data\/publications\.generated\.json'/);
   assert.match(sharedHome, /projectData from '\.\.\/data\/projects\.generated\.json'/);
   assert.match(sharedHome, /aria-pressed=\{filter === option\}/);
@@ -41,11 +42,11 @@ test('GitHub owns the weekly data refresh and redeployment mechanism', async () 
   assert.match(workflow, /schedule:\s*\n\s*- cron: '17 2 \* \* 1'/);
   assert.match(workflow, /contents: write/);
   assert.match(workflow, /workflow_dispatch'[\s\S]*'windows-latest'[\s\S]*'ubuntu-latest'/);
-  assert.match(workflow, /Refresh approved Google Scholar data[\s\S]*npm run sync:scholar:local/);
+  assert.match(workflow, /Refresh approved Google Scholar data[\s\S]*npm run refresh:scholar/);
   assert.match(workflow, /id: scholar-sync[\s\S]*continue-on-error: true/);
   assert.match(workflow, /Build static site[\s\S]*Deploy[\s\S]*Persist automatically refreshed data/);
   assert.match(workflow, /Persist automatically refreshed data[\s\S]*git push origin HEAD:main/);
-  assert.match(workflow, /Report Scholar refresh status[\s\S]*last verified snapshot/);
+  assert.match(workflow, /Report Scholar refresh status[\s\S]*refresh-scholar\.mjs --report/);
 });
 
 test('the removed motion showcase and its GIFs are absent from the interface', async () => {
