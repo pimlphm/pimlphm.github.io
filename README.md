@@ -21,7 +21,7 @@ The homepage is published in English at `/`. Run `npm run test:site` to validate
 
 ## Weekly Scholar refresh
 
-The repository's GitHub Pages workflow is scheduled every Monday at 10:17 Asia/Shanghai time (GitHub may delay scheduled jobs). It attempts to refresh the approved Google Scholar snapshot, validates all metrics and known record IDs, records the result in `data/scholar.json`, then rebuilds and deploys the site. Recovery runs on Tuesday and Wednesday at 14:47 only request Scholar when this week's verification is still missing. This mechanism runs on GitHub and does not depend on a local computer.
+The repository's GitHub Pages workflow is scheduled every Monday at 10:17 Asia/Shanghai time (GitHub may delay scheduled jobs). It attempts to refresh the approved Google Scholar snapshot, validates all metrics and known record IDs, records the result in `data/scholar.json`, then rebuilds and deploys the site. Recovery runs on Tuesday and Wednesday at 14:47 request Scholar when this week's verification is missing or the latest attempt failed, even if an earlier attempt succeeded that week. This mechanism runs on GitHub and does not depend on a local computer.
 
 If Scholar returns a block page, an unexpected record set or invalid metrics, the workflow preserves the last verified snapshot and records the failed attempt. The page and Actions summary distinguish a failed verification from a successful deployment. A manual `workflow_dispatch` exercises the same refresh path, including a fresh request even if this week already has verified data.
 

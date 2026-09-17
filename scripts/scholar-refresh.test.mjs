@@ -67,3 +67,22 @@ test('weekly eligibility uses the Monday boundary in China, including year chang
   assert.equal(weeklyRefreshDue(current, new Date('2027-01-03T16:00:00Z')), true);
   assert.ok(Number.isNaN(snapshotTime('29 Feb 2027')));
 });
+
+test('a failed follow-up after a successful Monday is retried by the next recovery run', async () => {
+  const mondaySnapshot = snapshot('14 Sep 2026');
+  const failedFollowUp = await refreshScholar({
+    current: mondaySnapshot, scheduled: false, now: new Date('2026-09-15T05:48:45Z'),
+    run: async () => { throw new Error('HTTP 429'); },
+  });
+  let requests = 0;
+  const recovered = await refreshScholar({
+    current: failedFollowUp.snapshot, scheduled: true, now: new Date('2026-09-16T06:47:00Z'),
+    run: async () => { requests++; return snapshot('16 Sep 2026'); },
+  });
+  assert.equal(requests, 1);
+  assert.equal(recovered.skipped, false);
+  assert.equal(recovered.success, true);
+  assert.equal(recovered.snapshot.profile.synced, '16 Sep 2026');
+  assert.equal(recovered.snapshot.refresh.outcome, 'success');
+  assert.equal(weeklyRefreshDue(recovered.snapshot, new Date('2026-09-17T06:47:00Z')), false);
+});

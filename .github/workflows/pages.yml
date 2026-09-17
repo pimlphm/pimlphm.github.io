@@ -5,7 +5,7 @@ on:
     branches: [main]
   schedule:
     - cron: '17 2 * * 1'
-    # Retry a missed weekly verification; skip the request if Monday succeeded.
+    # Retry a missed weekly verification or a later failed attempt.
     - cron: '47 6 * * 2,3'
   workflow_dispatch:
 
