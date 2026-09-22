@@ -85,8 +85,8 @@ const uiCopy = {
     publicationsEyebrow: 'Publications',
     publicationsHeading: 'Publications.',
     publicationsSummary: '11 journal articles · 7 conference contributions · doctoral thesis',
-    scholarAria: 'Google Scholar impact snapshot',
-    impactSnapshot: 'Impact snapshot',
+    scholarAria: 'Google Scholar citation metrics',
+    impactSnapshot: 'Citation metrics',
     synced: 'Last verified',
     distinctOutputs: 'distinct published outputs',
     citations: 'Citations',
@@ -398,7 +398,10 @@ export default function Home() {
           <a className="scholar-impact-source" href={scholarProfile.href} target="_blank" rel="noreferrer">
             <span>Google Scholar</span>
             <strong>{t.impactSnapshot}</strong>
-            <small>{t.synced} {scholarProfile.synced} · {scholarProfile.distinctOutputs} {t.distinctOutputs}</small>
+            <small>
+              <span>{t.synced} <b>{scholarProfile.synced}</b></span>
+              <span>{scholarProfile.distinctOutputs} {t.distinctOutputs}</span>
+            </small>
           </a>
           <div className="scholar-metric"><strong>{scholarProfile.citations}</strong><span>{t.citations}</span></div>
           <div className="scholar-metric"><strong>{scholarProfile.hIndex}</strong><span>{t.hIndex}</span></div>
