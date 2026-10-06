@@ -53,4 +53,12 @@ The English homepage includes the owner-supplied PYRENEES development plan: **Pr
 
 ## Content provenance
 
+The source-code section at `/#code` is maintained in `data/code-projects.json`.
+Each entry records its research area, repository access, implementation status,
+and optional paper or interactive-demo link. Public research repositories are
+grouped by agriculture and resilience, maintenance and diagnostics,
+physics-informed models, and knowledge and teaching. The Guangdong agricultural
+resilience entry describes an uncalibrated scenario demonstration and links to
+its private repository; this homepage does not publish its source or datasets.
+
 Publication metadata links to publisher or repository records. Full-text links are limited to open or author-shared copies. Research figures are drawn from the author's published work.

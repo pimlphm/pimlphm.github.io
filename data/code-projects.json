@@ -1,0 +1,148 @@
+[
+  {
+    "id": "guangdong-agricultural-resilience",
+    "category": "Agriculture & resilience",
+    "tag": "Climate adaptation · WebGIS",
+    "title": "Guangdong agricultural resilience",
+    "description": "A 2026–2050 scenario demonstration linking multi-hazard sequences, dynamic resilience, recovery margins and agricultural losses. Matched replays compare intervention timing under four economic pathways; the model is not yet calibrated.",
+    "access": "private",
+    "status": "Research prototype · authorized access required",
+    "repo": "https://github.com/pimlphm/guangdong-agricultural-resilience"
+  },
+  {
+    "id": "agrikb",
+    "category": "Agriculture & resilience",
+    "tag": "Agricultural knowledge · Local GUI",
+    "title": "AgriKB",
+    "description": "A local agricultural decision-support prototype with China and Toulouse editions. The Web GUI and FastAPI backend combine regional crop context, market information, knowledge retrieval and advisory Q&A.",
+    "access": "public",
+    "status": "Research prototype",
+    "repo": "https://github.com/pimlphm/agrikb-europe-github"
+  },
+  {
+    "id": "xims-maintenance-optimization",
+    "category": "Maintenance & diagnostics",
+    "tag": "Maintenance decisions · Optimization",
+    "title": "X-IMS maintenance optimization",
+    "description": "Research code for interpretable maintenance optimization, with a browser sandbox and Python plug-in. The illustrative interface compares deferral, inspection, preventive maintenance and replacement under explicit health and cost assumptions.",
+    "access": "public",
+    "status": "Research pre-release",
+    "repo": "https://github.com/pimlphm/xims-maintenance-optimization-code",
+    "demo": "https://pimlphm.github.io/xims-maintenance-optimization-code/"
+  },
+  {
+    "id": "xims-maintenance-impact",
+    "category": "Maintenance & diagnostics",
+    "tag": "Intervention effects · C-MAPSS / NGAFID",
+    "title": "X-IMS maintenance-impact identification",
+    "description": "Notebooks and Python workflows for interpretable maintenance-impact identification. A standalone browser explorer compares signals before and after maintenance and reports effect sizes and trajectory changes.",
+    "access": "public",
+    "status": "Research pre-release",
+    "repo": "https://github.com/pimlphm/xims-maintenance-impact-code",
+    "demo": "https://pimlphm.github.io/xims-maintenance-impact-code/"
+  },
+  {
+    "id": "rfemnn-rotor-diagnostics",
+    "category": "Maintenance & diagnostics",
+    "tag": "Rotor diagnostics",
+    "title": "RFEMNN rotor diagnostics",
+    "description": "Curated reproduction code for the rotor-dynamics-informed model reported in Advanced Engineering Informatics.",
+    "access": "public",
+    "status": "Publication code",
+    "paper": "https://doi.org/10.1016/j.aei.2023.102128",
+    "repo": "https://github.com/pimlphm/rfemnn-rotor-diagnostics"
+  },
+  {
+    "id": "pg-specmoe",
+    "category": "Maintenance & diagnostics",
+    "tag": "Gearbox / bearing · Cross-condition diagnosis",
+    "title": "PG-SpecMoE",
+    "description": "Physics-guided spectral mixture-of-experts for gearbox and bearing diagnosis across operating conditions. The archive includes experiment scripts, figure sources and selected results, with separate source-only and target-adaptation evaluation tracks.",
+    "access": "public",
+    "status": "Research code and reproducibility archive",
+    "repo": "https://github.com/pimlphm/PG-SpecMoE"
+  },
+  {
+    "id": "spectral-evidence-coordination",
+    "category": "Maintenance & diagnostics",
+    "tag": "Spectral evidence · Reproducibility",
+    "title": "Spectral evidence coordination",
+    "description": "Source and frozen revision evidence for information-bounded cross-speed gearbox diagnosis. The repository records predictions, protocol checks, statistics and figure regeneration for manuscript AME-26-0411.",
+    "access": "public",
+    "status": "Manuscript reproducibility archive",
+    "repo": "https://github.com/pimlphm/ame-26-0411-evidence-coordination"
+  },
+  {
+    "id": "piml-benchmark-architecture",
+    "category": "Physics-informed models",
+    "tag": "Battery prognostics",
+    "title": "PIML benchmark architecture",
+    "description": "Code accompanying the battery RUL framework and its associated benchmark architecture.",
+    "access": "public",
+    "status": "Publication code",
+    "paper": "https://doi.org/10.1016/j.apenergy.2025.125314",
+    "repo": "https://github.com/pimlphm/PIML-benchmark-architecture"
+  },
+  {
+    "id": "physics-informed-tcn",
+    "category": "Physics-informed models",
+    "tag": "Bearing prognostics",
+    "title": "Physics-informed TCN",
+    "description": "A lightweight temporal convolution implementation for physics-informed bearing prognostics.",
+    "access": "public",
+    "status": "Publication code",
+    "paper": "https://doi.org/10.36001/phme.2022.v7i1.3365",
+    "repo": "https://github.com/pimlphm/Physics-informed-machine-learning-based-on-TCN"
+  },
+  {
+    "id": "igbt-inverse-pinn",
+    "category": "Physics-informed models",
+    "tag": "Thermal modelling · Inverse PINN",
+    "title": "IGBT transient inverse PINN",
+    "description": "A transient physics-informed neural model for reconstructing three-dimensional temperature fields from surface measurements while identifying solder thermal conductivity in IGBT power modules.",
+    "access": "public",
+    "status": "Research implementation",
+    "repo": "https://github.com/pimlphm/IGBT-Transient-Thermal-Simulation-and-Inverse-Problem-Solving-on-PINN"
+  },
+  {
+    "id": "o-m-flow",
+    "category": "Knowledge & teaching",
+    "tag": "Ontology · Evidence retrieval",
+    "title": "O-M-Flow",
+    "description": "Ontology-constrained retrieval for aviation fault diagnosis. Structured fault evidence, graph propagation, evidence fusion and reranking connect source documents with diagnostic questions; code and aggregate evaluation results are provided.",
+    "access": "public",
+    "status": "Research implementation",
+    "repo": "https://github.com/pimlphm/O-M-Flow"
+  },
+  {
+    "id": "aerokg",
+    "category": "Knowledge & teaching",
+    "tag": "Aviation knowledge · Offline system",
+    "title": "AeroKG",
+    "description": "An offline engineering knowledge-system prototype combining industrial ontology, knowledge graphs, retrieval-augmented generation and evidence traceability for aviation airworthiness and maintenance workflows.",
+    "access": "public",
+    "status": "Research prototype",
+    "repo": "https://github.com/pimlphm/Offline-intelligent-system-"
+  },
+  {
+    "id": "aeromech-research-assistant",
+    "category": "Knowledge & teaching",
+    "tag": "Research tools · Evidence tracking",
+    "title": "AeroMech Research Assistant",
+    "description": "The AI4S repository provides a research assistant for aerospace mechatronics, PHM and physics-informed learning. It connects research metadata, journal comparison, evidence ledgers and reproducible research-package scaffolds.",
+    "access": "public",
+    "status": "Research software",
+    "repo": "https://github.com/pimlphm/AI4S"
+  },
+  {
+    "id": "machinery-phm-tutorial",
+    "category": "Knowledge & teaching",
+    "tag": "Learning resource",
+    "title": "Machinery PHM tutorial",
+    "description": "A practical collection of notebooks and examples for machinery prognostics and health management.",
+    "access": "public",
+    "status": "Teaching resource",
+    "paper": "https://doi.org/10.1016/j.mechatronics.2025.103297",
+    "repo": "https://github.com/pimlphm/machinery-phm-tutorial"
+  }
+]

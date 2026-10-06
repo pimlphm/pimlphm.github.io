@@ -28,5 +28,5 @@ export const metadata: Metadata = {
 };
 
 export default function ChinesePage() {
-  return <Home language="zh" />;
+  return <Home />;
 }

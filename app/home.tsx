@@ -5,6 +5,7 @@
 import { useMemo, useState } from 'react';
 import publicationData from '../data/publications.generated.json';
 import projectData from '../data/projects.generated.json';
+import codeData from '../data/code-projects.json';
 import Pyrenees from './pyrenees';
 import { useScholar } from './use-scholar';
 
@@ -42,8 +43,23 @@ type ResearchProject = {
   links: Array<{ label: LocalizedText; href: string }>;
 };
 
+type CodeProject = {
+  id: string;
+  category: string;
+  tag: string;
+  title: string;
+  description: string;
+  access: 'public' | 'private';
+  status: string;
+  repo: string;
+  paper?: string;
+  demo?: string;
+};
+
 const publications = publicationData as Publication[];
 const researchProjects = projectData as ResearchProject[];
+const codeRepositories = codeData as CodeProject[];
+const codeCategories = ['All', ...new Set(codeRepositories.map((project) => project.category))];
 
 const uiCopy = {
     homeAria: 'Weikun Deng — academic homepage',
@@ -154,37 +170,6 @@ const researchThreads = [
   },
 ];
 
-const codeProjects = [
-  {
-    tag: 'Rotor diagnostics',
-    title: 'RFEMNN rotor diagnostics',
-    description: 'Curated reproduction code for the rotor-dynamics-informed model reported in Advanced Engineering Informatics.',
-    paper: 'https://doi.org/10.1016/j.aei.2023.102128',
-    repo: 'https://github.com/pimlphm/rfemnn-rotor-diagnostics',
-  },
-  {
-    tag: 'Battery prognostics',
-    title: 'PIML benchmark architecture',
-    description: 'Code accompanying the battery RUL framework and its associated benchmark architecture.',
-    paper: 'https://doi.org/10.1016/j.apenergy.2025.125314',
-    repo: 'https://github.com/pimlphm/PIML-benchmark-architecture',
-  },
-  {
-    tag: 'Bearing prognostics',
-    title: 'Physics-informed TCN',
-    description: 'A lightweight temporal convolution implementation for physics-informed bearing prognostics.',
-    paper: 'https://doi.org/10.36001/phme.2022.v7i1.3365',
-    repo: 'https://github.com/pimlphm/Physics-informed-machine-learning-based-on-TCN',
-  },
-  {
-    tag: 'Learning resource',
-    title: 'Machinery PHM tutorial',
-    description: 'A practical collection of notebooks and examples for machinery prognostics and health management.',
-    paper: 'https://doi.org/10.1016/j.mechatronics.2025.103297',
-    repo: 'https://github.com/pimlphm/machinery-phm-tutorial',
-  },
-];
-
 const career = [
   { year: '2024—2026', role: 'Research Associate', place: 'UTTOP / Université de Toulouse · France' },
   { year: '2023—2024', role: 'Visiting Researcher', place: 'University of Central Florida · USA' },
@@ -239,7 +224,9 @@ export default function Home() {
   const scholarImpactByPublication = scholar.works;
   const [filter, setFilter] = useState<'All' | PublicationKind>('All');
   const [query, setQuery] = useState('');
+  const [codeCategory, setCodeCategory] = useState('All');
   const t = uiCopy;
+  const codeProjects = codeRepositories.filter((project) => codeCategory === 'All' || project.category === codeCategory);
 
   const visiblePublications = useMemo(() => {
     const term = query.trim().toLowerCase();
@@ -466,12 +453,25 @@ export default function Home() {
         <div className="section-heading code-heading">
           <p className="eyebrow"><span /> {t.codeEyebrow}</p>
         </div>
+        <div className="code-tools">
+          <div className="code-filters" role="group" aria-label="Filter source code by research area">
+            {codeCategories.map((category) => (
+              <button type="button" key={category} aria-pressed={codeCategory === category} onClick={() => setCodeCategory(category)}>{category}</button>
+            ))}
+          </div>
+          <p className="code-count" aria-live="polite">{codeProjects.length} {codeProjects.length === 1 ? 'repository' : 'repositories'}</p>
+        </div>
         <div className="code-grid">
-          {codeProjects.map((project, index) => (
-            <article className="code-card" key={project.title}>
-              <div className="code-card-top"><span>{project.tag}</span><span>0{index + 1}</span></div>
+          {codeProjects.map((project) => (
+            <article className="code-card" key={project.id}>
+              <div className="code-card-top"><span>{project.tag}</span><span>{String(codeRepositories.indexOf(project) + 1).padStart(2, '0')}</span></div>
               <h3>{project.title}</h3><p>{project.description}</p>
-              <div className="code-links"><ExternalLink href={project.repo}>{t.repository}</ExternalLink><ExternalLink href={project.paper}>{t.paper}</ExternalLink></div>
+              <p className="code-status">{project.status}</p>
+              <div className="code-links">
+                <ExternalLink href={project.repo}>{project.access === 'private' ? 'Private repository' : t.repository}</ExternalLink>
+                {project.demo && <ExternalLink href={project.demo}>Interactive demo</ExternalLink>}
+                {project.paper && <ExternalLink href={project.paper}>{t.paper}</ExternalLink>}
+              </div>
             </article>
           ))}
         </div>
