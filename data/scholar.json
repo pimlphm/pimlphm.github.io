@@ -3,14 +3,14 @@
     "userId": "mTYJRFwAAAAJ",
     "expectedName": "Weikun DENG",
     "href": "https://scholar.google.com/citations?user=mTYJRFwAAAAJ&hl=en",
-    "synced": "5 Oct 2026",
-    "citations": 377,
+    "synced": "12 Oct 2026",
+    "citations": 382,
     "hIndex": 9,
-    "i10Index": 7,
+    "i10Index": 8,
     "distinctOutputs": 19
   },
   "refresh": {
-    "attemptedAt": "2026-10-05T09:07:05.683Z",
+    "attemptedAt": "2026-10-12T09:15:01.143Z",
     "outcome": "success"
   },
   "ignoredScholarIds": [
@@ -30,7 +30,7 @@
     },
     "j7": {
       "scholarId": "Y5dfb0dijaUC",
-      "citations": 9,
+      "citations": 10,
       "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=3094338599254038023"
     },
     "j9": {
@@ -60,12 +60,12 @@
     },
     "j2": {
       "scholarId": "SdhP9T11ey4C",
-      "citations": 43,
+      "citations": 44,
       "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=13092672637013601172"
     },
     "j1": {
       "scholarId": "tS2w5q8j5-wC",
-      "citations": 133,
+      "citations": 136,
       "href": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=4072749472620204044"
     },
     "j10": {
