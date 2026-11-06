@@ -4,6 +4,21 @@ import test from 'node:test';
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), 'utf8');
 
+test('the academic layout prioritizes papers and keeps secondary material collapsed', async () => {
+  const [home, lab, styles] = await Promise.all([read('app/home.tsx'), read('app/pyrenees.tsx'), read('app/globals.css')]);
+  assert.ok(home.indexOf('id="publications"') < home.indexOf('<Pyrenees />'));
+  assert.match(home, /useState\(false\)/);
+  assert.match(home, /showAll \|\| isSearching \? matchingPublications : matchingPublications\.slice\(0, 6\)/);
+  assert.match(home, /aria-expanded=\{showAll\} aria-controls="publication-list"/);
+  assert.match(home, /publication\.links\.map/);
+  assert.match(home, /download=\{link\.download \|\| undefined\}/);
+  assert.match(home, /<details className="archive-disclosure">/);
+  assert.match(lab, /<details className="lab-plan">/);
+  assert.doesNotMatch(home + lab, /<details[^>]*\sopen[\s=>]/);
+  assert.match(styles, /max-width: 860px/);
+  assert.doesNotMatch(styles, /linear-gradient|@keyframes|min-height:.*100vh/);
+});
+
 test('the English root renders the shared data-driven homepage', async () => {
   const [page, sharedHome, githubMain, scholarHook] = await Promise.all([
     read('app/page.tsx'),

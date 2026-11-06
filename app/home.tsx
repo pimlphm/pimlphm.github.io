@@ -61,115 +61,6 @@ const researchProjects = projectData as ResearchProject[];
 const codeRepositories = codeData as CodeProject[];
 const codeCategories = ['All', ...new Set(codeRepositories.map((project) => project.category))];
 
-const uiCopy = {
-    homeAria: 'Weikun Deng — academic homepage',
-    navigationAria: 'Primary navigation',
-    navProjects: 'Projects',
-    navPublications: 'Publications',
-    navCode: 'Source code',
-    navLife: 'Beyond research',
-    heroEyebrow: 'Intelligent manufacturing · PHM · Machine learning',
-    heroTitle: 'Weikun Deng',
-    heroEmphasis: ' 邓炜坤',
-    heroIntroBefore: 'I am',
-    heroIntroAfter: 'an Assistant Professor in Intelligent Manufacturing and Systems Engineering. My research focuses on physics-informed machine learning, condition monitoring and maintenance of engineering systems.',
-    appointmentBefore: 'Assistant Professor in Intelligent Manufacturing & Systems Engineering at',
-    appointmentInstitution: ' City University of Hong Kong (Dongguan)',
-    appointmentAfter: ' from 1 September 2026.',
-    exploreWork: 'Explore the work',
-    browsePublications: 'Browse publications',
-    researchProfilesAria: 'Research profiles',
-    portraitAria: 'Portrait of Weikun Deng',
-    publishedRecord: 'Published work',
-    journalArticles: '11 journal articles',
-    inventiveWork: 'Granted patents',
-    grantedPatents: '4 granted patents',
-    researchEyebrow: 'Research areas',
-    researchHeadingOne: 'Research',
-    researchHeadingTwo: 'areas.',
-    evidenceEyebrow: 'Research project archive · 2017—2026',
-    evidenceHeading: 'Projects, year by year.',
-    evidenceIntro: 'Completed research and engineering projects, organized by year, with figures, papers and code where available.',
-    projectIndexAria: 'Jump to a project year',
-    projectArchiveAria: 'Research projects grouped by year',
-    projectSingular: 'project',
-    projectPlural: 'projects',
-    linkedOutput: 'linked output',
-    linkedOutputs: 'linked outputs',
-    technicalCase: 'documented case',
-    openArticle: 'Open article',
-    publicationsEyebrow: 'Publications',
-    publicationsHeading: 'Publications.',
-    publicationsSummary: '11 journal articles · 7 conference contributions · doctoral thesis',
-    scholarAria: 'Google Scholar citation metrics',
-    impactSnapshot: 'Citation metrics',
-    synced: 'Last verified',
-    distinctOutputs: 'distinct published outputs',
-    citations: 'Citations',
-    hIndex: 'h-index',
-    i10Index: 'i10-index',
-    filterAria: 'Filter publications',
-    searchSr: 'Search publications',
-    searchPlaceholder: 'Search title, venue, topic…',
-    record: 'record',
-    records: 'records',
-    citation: 'citation',
-    citationsLower: 'citations',
-    noRecords: 'No records match that search.',
-    rightsNote: 'Scholar counts are a dated snapshot and will change over time. Records are matched by final title and DOI, with duplicate or non-final versions omitted. Full-text buttons point to open or author-shared copies.',
-    codeEyebrow: 'Selected source code',
-    repository: 'Repository',
-    paper: 'Paper',
-    pathEyebrow: 'Path',
-    pathHeadingOne: 'Research',
-    pathHeadingTwo: 'experience.',
-    pathIntro: 'Research and engineering experience in China, France and the United States.',
-    recognitionEyebrow: 'Recognition',
-    recognitionHeading: 'Selected awards.',
-    inventionEyebrow: 'Invention',
-    inventionHeading: 'Four granted patents.',
-    lifeEyebrow: 'Beyond research',
-    lifeHeadingOne: 'Outside',
-    lifeHeadingTwo: 'research.',
-    novelLabel: '01 · Novels',
-    novelTitle: 'Novels',
-    novelDetail: 'Reading fiction for its characters, narrative structure and long-form storytelling.',
-    badmintonLabel: '02 · Badminton',
-    badmintonTitle: 'Badminton',
-    badmintonDetail: 'A regular sport for timing, fast recovery and footwork.',
-    cyclingLabel: '03 · Cycling',
-    cyclingTitle: 'Cycling',
-    cyclingDetail: 'Long rides for changing terrain and a steady pace.',
-    connect: 'Connect',
-    footerTagline: 'Academic homepage of Weikun Deng.',
-    footerNote: '© 2026 Weikun Deng.',
-} as const;
-
-const publicationKindLabels: Record<'All' | PublicationKind, string> = {
-  All: 'All',
-  Journal: 'Journal',
-  Conference: 'Conference',
-  Thesis: 'Thesis',
-};
-
-const researchThreads = [
-  {
-    index: '01',
-    title: 'Physics-informed learning',
-    detail: 'Learning architectures shaped by equations, mechanisms and engineering structure.',
-  },
-  {
-    index: '02',
-    title: 'Diagnostics & prognostics',
-    detail: 'Health assessment for rotating machinery, batteries and complex monitored systems.',
-  },
-  {
-    index: '03',
-    title: 'Learning with scarce labels',
-    detail: 'Self-supervised and transfer learning for sparse, noisy and shifting conditions.',
-  },
-];
-
 const career = [
   { year: '2024—2026', role: 'Research Associate', place: 'UTTOP / Université de Toulouse · France' },
   { year: '2023—2024', role: 'Visiting Researcher', place: 'University of Central Florida · USA' },
@@ -205,7 +96,6 @@ function NameHighlighted({ authors }: { authors: string }) {
     </>
   );
 }
-
 function ExternalLink({ href, children, className = '' }: { href: string; children: React.ReactNode; className?: string }) {
   return (
     <a className={className} href={href} target="_blank" rel="noreferrer">
@@ -220,320 +110,200 @@ function publicationLinkLabel(link: PublicationLink) {
 
 export default function Home() {
   const scholar = useScholar();
-  const scholarProfile = scholar.profile;
-  const scholarImpactByPublication = scholar.works;
   const [filter, setFilter] = useState<'All' | PublicationKind>('All');
   const [query, setQuery] = useState('');
+  const [showAll, setShowAll] = useState(false);
   const [codeCategory, setCodeCategory] = useState('All');
-  const t = uiCopy;
   const codeProjects = codeRepositories.filter((project) => codeCategory === 'All' || project.category === codeCategory);
-
-  const visiblePublications = useMemo(() => {
+  const matchingPublications = useMemo(() => {
     const term = query.trim().toLowerCase();
-    return publications.filter((publication) => {
-      const matchesKind = filter === 'All' || publication.kind === filter;
-      const haystack = `${publication.title} ${publication.authors} ${publication.venue} ${publication.topic.en}`.toLowerCase();
-      return matchesKind && (!term || haystack.includes(term));
-    });
+    return publications.filter((publication) =>
+      (filter === 'All' || publication.kind === filter) &&
+      (!term || `${publication.title} ${publication.authors} ${publication.venue} ${publication.topic.en} ${publication.year}`.toLowerCase().includes(term))
+    ).sort((a, b) => b.year - a.year);
   }, [filter, query]);
-
-  const publicationCounts = useMemo(() => ({
-    Journal: publications.filter((publication) => publication.kind === 'Journal').length,
-    Conference: publications.filter((publication) => publication.kind === 'Conference').length,
-    Thesis: publications.filter((publication) => publication.kind === 'Thesis').length,
-  }), []);
-  const publicationSummary = `${publicationCounts.Journal} journal articles · ${publicationCounts.Conference} conference contributions · ${publicationCounts.Thesis} doctoral thesis`;
-  const projectYears = useMemo(() => [...new Set(researchProjects.map((project) => project.year))].sort((a, b) => b - a), []);
-  const publicationById = useMemo(() => new Map(publications.map((publication) => [publication.id, publication])), []);
+  const isSearching = filter !== 'All' || query.trim().length > 0;
+  const visiblePublications = showAll || isSearching ? matchingPublications : matchingPublications.slice(0, 6);
+  const publicationYears = [...new Set(visiblePublications.map((publication) => publication.year))];
+  const projectYears = [...new Set(researchProjects.map((project) => project.year))].sort((a, b) => b - a);
 
   return (
-    <main lang="en">
+    <main lang="en" className="academic-home">
+      <a className="skip-link" href="#publications">Skip to publications</a>
       <header className="site-header">
-        <a className="wordmark" href="#top" aria-label={t.homeAria}>
-          <span className="wordmark-mark">WD</span>
-          <span>Weikun Deng</span>
-        </a>
-        <nav className="nav-links" aria-label={t.navigationAria}>
-          <a href="#pyrenees">PYRENEES Lab</a>
-          <a href="#projects">{t.navProjects}</a>
-          <a href="#publications">{t.navPublications}</a>
-          <a href="#code">{t.navCode}</a>
-          <a href="#life">{t.navLife}</a>
+        <a className="wordmark" href="#top" aria-label="Weikun Deng — academic homepage">Weikun Deng</a>
+        <nav className="nav-links" aria-label="Primary navigation">
+          <a href="#publications">Publications</a>
+          <a href="#pyrenees">Lab</a>
+          <a href="#projects">Projects</a>
+          <a href="#code">Code</a>
+          <a href="#contact">Contact</a>
         </nav>
-        <ExternalLink className="nav-cta" href="https://github.com/pimlphm">GitHub</ExternalLink>
       </header>
 
-      <section className="hero" id="top">
-        <div className="hero-copy">
-          <p className="eyebrow"><span /> {t.heroEyebrow}</p>
-          <h1>{t.heroTitle}<em>{t.heroEmphasis}</em></h1>
-          <p className="hero-intro">
-            {t.heroIntroBefore} <strong>Weikun DENG 邓炜坤</strong>, {t.heroIntroAfter}
-          </p>
-          <div className="appointment-note">
-            <span className="appointment-date">01 · 09 · 2026</span>
-            <p>
-              {t.appointmentBefore}
-              <strong>{t.appointmentInstitution}</strong>
-              {t.appointmentAfter}
-            </p>
-          </div>
-          <div className="hero-actions">
-            <a className="button button-ghost" href="#pyrenees">PYRENEES Laboratory</a>
-            <a className="button button-primary" href="#projects">{t.exploreWork} <span>↓</span></a>
-            <a className="button button-ghost" href="#publications">{t.browsePublications}</a>
-          </div>
-          <div className="profile-links" aria-label={t.researchProfilesAria}>
-            <ExternalLink href="https://scholar.google.com/citations?user=mTYJRFwAAAAJ&hl=en">Google Scholar</ExternalLink>
+      <section className="profile" id="top" aria-labelledby="profile-name">
+        <div className="profile-copy">
+          <h1 id="profile-name">Weikun Deng <span lang="zh">邓炜坤</span></h1>
+          <p className="affiliation"><strong>Assistant Professor</strong><br />Intelligent Manufacturing and Systems Engineering<br />City University of Hong Kong (Dongguan)</p>
+          <a className="email" href="mailto:wekun.deng@cityu-dg.edu.cn">wekun.deng@cityu-dg.edu.cn</a>
+          <div className="profile-links" aria-label="Research profiles">
+            <ExternalLink href={scholar.profile.href}>Google Scholar</ExternalLink>
+            <ExternalLink href="https://github.com/pimlphm">GitHub</ExternalLink>
             <ExternalLink href="https://dblp.org/pid/363/0767.html">DBLP</ExternalLink>
-            <ExternalLink href="https://www.scopus.com/authid/detail.uri?authorId=58529504100">Scopus</ExternalLink>
           </div>
         </div>
-
-        <div className="portrait-stage" aria-label={t.portraitAria}>
-          <div className="orbit orbit-one" aria-hidden="true" />
-          <div className="orbit orbit-two" aria-hidden="true" />
-          <div className="portrait-frame"><img src="/images/weikun-deng-lanterns.jpg" alt="Weikun Deng" /></div>
-          <div className="signal-card signal-card-top"><span>{t.publishedRecord}</span><strong>{publicationCounts.Journal} journal articles</strong></div>
-          <div className="signal-card signal-card-bottom"><span>{t.inventiveWork}</span><strong>{t.grantedPatents}</strong></div>
-        </div>
+        <div className="portrait-frame"><img src="/images/weikun-deng-lanterns.jpg" alt="Weikun Deng" width="180" height="180" /></div>
       </section>
 
-      <section className="research-strip" id="work">
-        <div className="strip-heading">
-          <p className="eyebrow"><span /> {t.researchEyebrow}</p>
-          <h2>{t.researchHeadingOne}<br />{t.researchHeadingTwo}</h2>
+      <section className="about-section" id="work" aria-labelledby="about-title">
+        <h2 id="about-title">About</h2>
+        <p>I joined City University of Hong Kong (Dongguan) on 1 September 2026. Previously, I was a Research Associate at UTTOP / Université de Toulouse. I received my PhD in Industrial Engineering from Toulouse INP, Université de Toulouse, in 2024.</p>
+        <p>My research focuses on physics-informed machine learning, condition monitoring and maintenance of engineering systems.</p>
+        <p className="research-interests"><strong>Research interests:</strong> physics-informed learning; diagnostics and prognostics; self-supervised and transfer learning; system resilience.</p>
+      </section>
+
+      <section className="publications-section" id="publications" aria-labelledby="publications-title">
+        <h2 id="publications-title">Publications</h2>
+        <div className="scholar-summary" aria-label="Google Scholar citation metrics">
+          <ExternalLink href={scholar.profile.href}>Google Scholar</ExternalLink>
+          <span><strong>{scholar.profile.citations}</strong> citations</span>
+          <span>h-index <strong>{scholar.profile.hIndex}</strong></span>
+          <span>i10-index <strong>{scholar.profile.i10Index}</strong></span>
+          <span className="verified">Verified {scholar.profile.synced}</span>
         </div>
-        <div className="thread-grid">
-          {researchThreads.map((thread) => (
-            <article className="thread-card" key={thread.index}>
-              <span className="thread-index">{thread.index}</span>
-              <h3>{thread.title}</h3>
-              <p>{thread.detail}</p>
-            </article>
+        {scholar.refresh?.outcome === 'unavailable' && <p className="sync-note">The latest Scholar check was unavailable; these are the last verified counts.</p>}
+        <div className="publication-tools">
+          <div className="filter-group" role="group" aria-label="Filter publications">
+            {(['All', 'Journal', 'Conference', 'Thesis'] as const).map((option) => (
+              <button aria-pressed={filter === option} className={filter === option ? 'filter-button active' : 'filter-button'} key={option} onClick={() => setFilter(option)} type="button">{option}</button>
+            ))}
+          </div>
+          <label className="search-box">
+            <span className="sr-only">Search all publications</span>
+            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search all publications…" type="search" />
+          </label>
+        </div>
+        <p className="publication-count" aria-live="polite">{isSearching ? `${matchingPublications.length} matching publications` : showAll ? `All ${publications.length} publications` : `Recent publications · ${visiblePublications.length} of ${publications.length}`}</p>
+        <div className="publication-list" id="publication-list">
+          {publicationYears.map((year) => (
+            <section className="publication-year" key={year} aria-labelledby={`publication-year-${year}`}>
+              <h3 id={`publication-year-${year}`}>{year}</h3>
+              <ul className="paper-list">
+                {visiblePublications.filter((publication) => publication.year === year).map((publication) => {
+                  const impact = scholar.works[publication.id];
+                  return (
+                    <li className="publication-row" key={publication.id}>
+                      <h4>{publication.title}</h4>
+                      <p className="authors"><NameHighlighted authors={publication.authors} /></p>
+                      <p className="venue">{publication.venue}</p>
+                      <div className="publication-links">
+                        {publication.links.map((link) => (
+                          <a href={link.href} key={`${publication.id}-${link.href}`} target="_blank" rel="noreferrer" download={link.download || undefined}>{publicationLinkLabel(link)}</a>
+                        ))}
+                        {impact && <a className="citation-link" href={impact.href} target="_blank" rel="noreferrer">{impact.citations} {impact.citations === 1 ? 'citation' : 'citations'}</a>}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
           ))}
+          {visiblePublications.length === 0 && <p className="empty-state">No publications match your search.</p>}
         </div>
+        {!isSearching && publications.length > 6 && (
+          <button className="archive-toggle" type="button" aria-expanded={showAll} aria-controls="publication-list" onClick={() => setShowAll(!showAll)}>
+            {showAll ? 'Show recent publications' : `Show all ${publications.length} publications`}
+          </button>
+        )}
+        <details className="publication-notes">
+          <summary>About this list and citation updates</summary>
+          <p>Records are matched by final title and DOI, with duplicate versions omitted. Full-text links point to open or author-shared copies. Google Scholar counts are checked weekly on Mondays (UTC+8); the verification date above identifies the saved data.</p>
+        </details>
       </section>
 
       <Pyrenees />
 
-      <section className="evidence-section project-section" id="projects">
-        <div className="section-heading split-heading">
-          <div><p className="eyebrow"><span /> {t.evidenceEyebrow}</p><h2>{t.evidenceHeading}</h2></div>
-          <p>{t.evidenceIntro}</p>
-        </div>
-        <nav className="project-year-index" aria-label={t.projectIndexAria}>
-          {projectYears.map((year) => <a key={year} href={`#projects-${year}`}>{year}</a>)}
-        </nav>
-        <div className="project-archive" aria-label={t.projectArchiveAria}>
-          {projectYears.map((year) => {
-            const yearProjects = researchProjects.filter((project) => project.year === year);
-            return (
+      <section className="archive-section" id="projects" aria-labelledby="projects-title">
+        <h2 id="projects-title">Research projects</h2>
+        <p>Liquid neural networks and interpretable operators, maintenance-effect assessment, satellite knowledge distillation, and earlier engineering work.</p>
+        <details className="archive-disclosure">
+          <summary>Browse {researchProjects.length} projects by year</summary>
+          <div className="project-archive">
+            {projectYears.map((year) => (
               <section className="project-year" id={`projects-${year}`} key={year}>
-                <header className="project-year-marker">
-                  <strong>{year}</strong>
-                  <span>{yearProjects.length} {yearProjects.length === 1 ? t.projectSingular : t.projectPlural}</span>
-                </header>
-                <div className="project-list">
-                  {yearProjects.map((project) => {
-                    const linkedOutputCount = project.publicationIds.filter((id) => publicationById.has(id)).length;
-                    const projectCitations = project.publicationIds.reduce((sum, id) => sum + (scholarImpactByPublication[id]?.citations ?? 0), 0);
-                    return (
-                      <article className="project-card" key={project.id}>
-                        <div className={`project-media${project.image ? ' has-image' : ''}`}>
-                          {project.image ? (
-                            <img src={project.image} alt={project.imageAlt?.en ?? project.title.en} loading="lazy" />
-                          ) : (
-                            <div className="project-signal" aria-hidden="true">
-                              <span /><span /><span /><span /><strong>{project.displayYear ?? project.year}</strong>
-                            </div>
-                          )}
-                          <span className="project-year-badge">{project.displayYear ?? project.year}</span>
+                <h3>{year}</h3>
+                {researchProjects.filter((project) => project.year === year).map((project) => (
+                  <details className="project-entry" key={project.id}>
+                    <summary>{project.title.en}</summary>
+                    <div className="project-detail">
+                      {project.image && <img src={project.image} alt={project.imageAlt?.en ?? project.title.en} loading="lazy" />}
+                      <div>
+                        <p>{project.summary.en}</p>
+                        <p className="muted">{project.kind.en} · {project.displayYear ?? project.year}</p>
+                        <div className="inline-links">
+                          {project.links.map((link) => <ExternalLink href={link.href} key={`${project.id}-${link.href}`}>{link.label.en}</ExternalLink>)}
                         </div>
-                        <div className="project-copy">
-                          <p className="project-kind">{project.kind.en}</p>
-                          <h3>{project.title.en}</h3>
-                          <p className="project-summary">{project.summary.en}</p>
-                          <p className="project-tags">{project.tags.en}</p>
-                          <div className="project-impact">
-                            <span>{linkedOutputCount > 0 ? `${linkedOutputCount} ${linkedOutputCount === 1 ? t.linkedOutput : t.linkedOutputs}` : `1 ${t.technicalCase}`}</span>
-                            {projectCitations > 0 && <span>{projectCitations} {projectCitations === 1 ? t.citation : t.citationsLower}</span>}
-                          </div>
-                          {project.links.length > 0 && (
-                            <div className="project-links">
-                              {project.links.map((link) => <ExternalLink href={link.href} key={`${project.id}-${link.href}`}>{link.label.en}</ExternalLink>)}
-                            </div>
-                          )}
-                        </div>
-                      </article>
-                    );
-                  })}
-                </div>
-              </section>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="publications-section" id="publications">
-        <div className="section-heading publications-heading">
-          <div><p className="eyebrow"><span /> {t.publicationsEyebrow}</p><h2>{t.publicationsHeading}</h2></div>
-          <p>{publicationSummary}</p>
-        </div>
-
-        <div className="scholar-impact" aria-label={`${t.scholarAria}, ${scholarProfile.synced}`}>
-          <a className="scholar-impact-source" href={scholarProfile.href} target="_blank" rel="noreferrer">
-            <span>Google Scholar</span>
-            <strong>{t.impactSnapshot}</strong>
-            <small>
-              <span>{t.synced} <b>{scholarProfile.synced}</b></span>
-              <span>{scholarProfile.distinctOutputs} {t.distinctOutputs}</span>
-            </small>
-          </a>
-          <div className="scholar-metric"><strong>{scholarProfile.citations}</strong><span>{t.citations}</span></div>
-          <div className="scholar-metric"><strong>{scholarProfile.hIndex}</strong><span>{t.hIndex}</span></div>
-          <div className="scholar-metric"><strong>{scholarProfile.i10Index}</strong><span>{t.i10Index}</span></div>
-        </div>
-
-        <p className="scholar-update-note">
-          Updated weekly on Mondays (UTC+8).{' '}
-          {scholar.refresh?.outcome === 'unavailable' && <span>The latest check was unavailable; the values above are from {scholarProfile.synced}. </span>}
-          <ExternalLink href={scholarProfile.href}>View the current Google Scholar profile</ExternalLink>
-        </p>
-
-        <div className="publication-tools">
-          <div className="filter-group" aria-label={t.filterAria}>
-            {(['All', 'Journal', 'Conference', 'Thesis'] as const).map((option) => (
-              <button aria-pressed={filter === option} className={filter === option ? 'filter-button active' : 'filter-button'} key={option} onClick={() => setFilter(option)} type="button">{publicationKindLabels[option]}</button>
-            ))}
-          </div>
-          <label className="search-box">
-            <span className="sr-only">{t.searchSr}</span>
-            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={t.searchPlaceholder} type="search" />
-            <span aria-hidden="true">⌕</span>
-          </label>
-        </div>
-
-        <div className="publication-count" aria-live="polite">{visiblePublications.length} {visiblePublications.length === 1 ? t.record : t.records}</div>
-        <div className="publication-list">
-          {visiblePublications.map((publication) => {
-            const scholarImpact = scholarImpactByPublication[publication.id];
-            return (
-            <article className="publication-row" key={publication.id}>
-              <div className="publication-meta"><span>{publication.year}</span><span>{publicationKindLabels[publication.kind]}</span></div>
-              <div className="publication-main">
-                <p className="publication-topic">{publication.topic.en}</p>
-                <h3>{publication.title}</h3>
-                <p className="authors"><NameHighlighted authors={publication.authors} /></p>
-                <p className="venue">{publication.venue}</p>
-              </div>
-              <div className="publication-links">
-                {scholarImpact && (
-                  <a className="publication-impact" href={scholarImpact.href} target="_blank" rel="noreferrer">
-                    <strong>{scholarImpact.citations}</strong>
-                    <span>{scholarImpact.citations === 1 ? t.citation : t.citationsLower} · Scholar ↗</span>
-                  </a>
-                )}
-                {publication.links.map((link) => (
-                  <a href={link.href} key={`${publication.id}-${link.href}`} target="_blank" rel="noreferrer" download={link.download || undefined}>{publicationLinkLabel(link)} <span aria-hidden="true">↗</span></a>
+                      </div>
+                    </div>
+                  </details>
                 ))}
-              </div>
-            </article>
-            );
-          })}
-          {visiblePublications.length === 0 && <p className="empty-state">{t.noRecords}</p>}
-        </div>
-        <p className="rights-note">{t.rightsNote}</p>
-      </section>
-
-      <section className="code-section" id="code">
-        <div className="code-orbit" aria-hidden="true">
-          <span className="code-node node-a" /><span className="code-node node-b" /><span className="code-node node-c" /><span className="code-center">&lt;/&gt;</span>
-        </div>
-        <div className="section-heading code-heading">
-          <p className="eyebrow"><span /> {t.codeEyebrow}</p>
-        </div>
-        <div className="code-tools">
-          <div className="code-filters" role="group" aria-label="Filter source code by research area">
-            {codeCategories.map((category) => (
-              <button type="button" key={category} aria-pressed={codeCategory === category} onClick={() => setCodeCategory(category)}>{category}</button>
+              </section>
             ))}
           </div>
-          <p className="code-count" aria-live="polite">{codeProjects.length} {codeProjects.length === 1 ? 'repository' : 'repositories'}</p>
-        </div>
-        <div className="code-grid">
-          {codeProjects.map((project) => (
-            <article className="code-card" key={project.id}>
-              <div className="code-card-top"><span>{project.tag}</span><span>{String(codeRepositories.indexOf(project) + 1).padStart(2, '0')}</span></div>
-              <h3>{project.title}</h3><p>{project.description}</p>
-              <p className="code-status">{project.status}</p>
-              <div className="code-links">
-                <ExternalLink href={project.repo}>{project.access === 'private' ? 'Private repository' : t.repository}</ExternalLink>
-                {project.demo && <ExternalLink href={project.demo}>Interactive demo</ExternalLink>}
-                {project.paper && <ExternalLink href={project.paper}>{t.paper}</ExternalLink>}
-              </div>
-            </article>
-          ))}
-        </div>
+        </details>
       </section>
 
-      <section className="path-section" id="path">
-        <div className="section-heading path-heading">
-          <div><p className="eyebrow"><span /> {t.pathEyebrow}</p><h2>{t.pathHeadingOne}<br />{t.pathHeadingTwo}</h2></div>
-          <p>{t.pathIntro}</p>
-        </div>
-        <div className="timeline">
-          {career.map((item) => (
-            <article className="timeline-row" key={`${item.year}-${item.role}`}>
-              <span className="timeline-year">{item.year}</span><div><h3>{item.role}</h3><p>{item.place}</p></div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="recognition-section">
-        <div className="recognition-column">
-          <p className="eyebrow"><span /> {t.recognitionEyebrow}</p><h2>{t.recognitionHeading}</h2>
-          <div className="achievement-list">
-            {achievements.map((achievement) => <article key={achievement.title}><p>{achievement.label}</p><h3>{achievement.title}</h3></article>)}
+      <section className="code-section" id="code" aria-labelledby="code-title">
+        <h2 id="code-title">Code</h2>
+        <p>Paper-specific code is linked above. Additional repositories and demonstrations are listed below.</p>
+        <details className="archive-disclosure">
+          <summary>Selected source code · {codeRepositories.length} repositories</summary>
+          <div className="code-filters filter-group" role="group" aria-label="Filter source code by research area">
+            {codeCategories.map((category) => <button className="filter-button" type="button" key={category} aria-pressed={codeCategory === category} onClick={() => setCodeCategory(category)}>{category}</button>)}
           </div>
-        </div>
-        <div className="recognition-column patent-column">
-          <p className="eyebrow"><span /> {t.inventionEyebrow}</p><h2>{t.inventionHeading}</h2>
-          <div className="patent-list">
-            {patents.map(([number, title]) => <article key={number}><span>{number}</span><p>{title}</p></article>)}
-          </div>
-        </div>
+          <p className="muted" aria-live="polite">{codeProjects.length} repositories</p>
+          <ul className="repository-list">
+            {codeProjects.map((project) => (
+              <li key={project.id}>
+                <h3><ExternalLink href={project.repo}>{project.title}</ExternalLink>{project.access === 'private' && <span className="private-label">Private</span>}</h3>
+                <p>{project.description}</p>
+                <p className="muted">{project.status}</p>
+                <div className="inline-links">
+                  {project.demo && <ExternalLink href={project.demo}>Interactive demo</ExternalLink>}
+                  {project.paper && <ExternalLink href={project.paper}>Paper</ExternalLink>}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </details>
       </section>
 
-      <section className="life-section" id="life">
-        <div className="section-heading life-heading"><p className="eyebrow"><span /> {t.lifeEyebrow}</p><h2>{t.lifeHeadingOne}<br />{t.lifeHeadingTwo}</h2></div>
-        <div className="hobby-grid">
-          <article className="hobby-card novel-card">
-            <div className="hobby-visual books" aria-hidden="true"><span /><span /><span /><span /></div>
-            <div><span className="hobby-index">{t.novelLabel}</span><h3>{t.novelTitle}</h3><p>{t.novelDetail}</p></div>
-          </article>
-          <article className="hobby-card badminton-card">
-            <div className="hobby-visual shuttle-stage" aria-hidden="true"><span className="shuttle-head" /><span className="shuttle-feather feather-one" /><span className="shuttle-feather feather-two" /><span className="shuttle-feather feather-three" /></div>
-            <div><span className="hobby-index">{t.badmintonLabel}</span><h3>{t.badmintonTitle}</h3><p>{t.badmintonDetail}</p></div>
-          </article>
-          <article className="hobby-card cycling-card">
-            <div className="hobby-visual bicycle" aria-hidden="true"><span className="wheel wheel-left" /><span className="wheel wheel-right" /><span className="bike-frame" /><span className="bike-line" /></div>
-            <div><span className="hobby-index">{t.cyclingLabel}</span><h3>{t.cyclingTitle}</h3><p>{t.cyclingDetail}</p></div>
-          </article>
-        </div>
+      <section className="background-section" id="path" aria-labelledby="background-title">
+        <h2 id="background-title">Background</h2>
+        <details className="archive-disclosure">
+          <summary>Education and experience</summary>
+          <dl className="career-list">
+            {career.map((item) => <div key={`${item.year}-${item.role}`}><dt>{item.year}</dt><dd><strong>{item.role}</strong><br />{item.place}</dd></div>)}
+          </dl>
+        </details>
+        <details className="archive-disclosure">
+          <summary>Awards and patents</summary>
+          <h3>Awards</h3>
+          <ul>{achievements.map((item) => <li key={item.title}>{item.title} <span className="muted">({item.label.split(' · ')[0]})</span></li>)}</ul>
+          <h3>Granted patents</h3>
+          <ul>{patents.map(([number, title]) => <li key={number}>{title} <span className="muted">({number})</span></li>)}</ul>
+        </details>
       </section>
 
-      <footer className="site-footer">
-        <div><p className="eyebrow"><span /> {t.connect}</p><h2>Weikun DENG <em>邓炜坤</em></h2><p>{t.footerTagline}</p></div>
-        <div className="footer-links">
-          <a href="mailto:wekun.deng@cityu-dg.edu.cn">Email · wekun.deng@cityu-dg.edu.cn <span aria-hidden="true">↗</span></a>
-          <ExternalLink href="https://github.com/pimlphm">GitHub</ExternalLink>
-          <ExternalLink href="https://scholar.google.com/citations?user=mTYJRFwAAAAJ&hl=en">Scholar</ExternalLink>
+      <footer className="site-footer" id="contact">
+        <h2>Contact</h2>
+        <p><a href="mailto:wekun.deng@cityu-dg.edu.cn">wekun.deng@cityu-dg.edu.cn</a><br />City University of Hong Kong (Dongguan)</p>
+        <div className="inline-links">
           <ExternalLink href="https://www.researchgate.net/profile/Weikun-Deng">ResearchGate</ExternalLink>
           <ExternalLink href="https://www.scopus.com/authid/detail.uri?authorId=58529504100">Scopus</ExternalLink>
         </div>
-        <p className="footer-note">{t.footerNote}</p>
+        <p id="life"><strong>Outside research:</strong> I enjoy novels, badminton and cycling.</p>
+        <p className="copyright">© 2026 Weikun Deng</p>
       </footer>
     </main>
   );

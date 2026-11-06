@@ -16,17 +16,18 @@ export default function Pyrenees() {
     <section className="lab-section" id="pyrenees" aria-labelledby="lab-title">
       <div className="lab-heading">
         <div>
-          <p className="eyebrow"><span /> Laboratory · CityU Dongguan</p>
-          <h2 id="lab-title">PYRENEES</h2>
+          <h2 id="lab-title">PYRENEES Laboratory</h2>
           <p className="lab-full-name">Prognostics and cYber-physical Resilience Engineering Nexus for Equipment and System Safety</p>
         </div>
         <div className="lab-overview">
-          <span className="lab-status">Laboratory development plan</span>
           <p>PYRENEES is the planned research laboratory of Weikun Deng at City University of Hong Kong (Dongguan), focusing on industrial system safety, resilience and autonomous maintenance.</p>
-          <p>The plan brings together physics-informed machine learning, predictive maintenance and embodied inspection to support lifecycle intelligence for aviation, energy, advanced manufacturing and complex equipment.</p>
         </div>
       </div>
 
+      <details className="lab-plan">
+        <summary>Laboratory plan and facilities</summary>
+        <p className="lab-status">Proposed facilities · installation not yet confirmed</p>
+        <p>The plan brings together physics-informed machine learning, predictive maintenance and embodied inspection to support lifecycle intelligence for aviation, energy, advanced manufacturing and complex equipment.</p>
       <ol className="lab-pipeline" aria-label="Industrial intelligence research cycle">
         {['Sense', 'Model', 'Predict', 'Decide', 'Act'].map((step, index) => <li key={step}><span>0{index + 1}</span>{step}</li>)}
       </ol>
@@ -136,6 +137,7 @@ export default function Pyrenees() {
           </div>
         </details>
       </div>
+      </details>
     </section>
   );
 }
